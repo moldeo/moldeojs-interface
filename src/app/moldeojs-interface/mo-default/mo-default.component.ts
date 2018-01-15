@@ -14,7 +14,7 @@ export class MoDefaultComponent implements OnInit {
   public toggle:boolean = false;
 
   public type:string = "moDefault";
-  public title:string;
+  public title:string = "";
 
   constructor() {}
 

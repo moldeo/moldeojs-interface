@@ -1,4 +1,4 @@
-import { Directive, HostListener, ElementRef, Renderer, EventEmitter, Input } from '@angular/core';
+import { Directive, HostListener, ElementRef, Input } from '@angular/core';
 
 @Directive({
   selector: '[draggable]'
@@ -14,7 +14,7 @@ export class DraggableDirective {
       ngOnInit(){
         // css changes
         if(this._allowDrag){
-          this.element.nativeElement.style.position = 'relative';
+          this.element.nativeElement.style.position = 'absolute';
           this.element.nativeElement.className += ' cursor-draggable';
         }
       }
@@ -26,11 +26,13 @@ export class DraggableDirective {
         this.md = true;
         this.topStart = event.clientY - this.element.nativeElement.style.top.replace('px','');
         this.leftStart = event.clientX - this.element.nativeElement.style.left.replace('px','');
+        this.element.nativeElement.style.zIndex = '90';
       }
 
       @HostListener('document:mouseup')
       onMouseUp(event:MouseEvent) {
         this.md = false;
+        this.element.nativeElement.style.zIndex = '0';
       }
 
       @HostListener('document:mousemove', ['$event'])

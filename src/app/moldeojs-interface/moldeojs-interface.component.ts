@@ -19,6 +19,8 @@ export class MoldeojsInterfaceComponent implements OnInit {
   /////////////////////////////////////////////
   @ViewChild('moTool') moTool: ElementRef;
   public moToolDisplay:boolean = false;
+  /////////////////////////////////////////////
+  public moFileName:string = "No File (.MOL)";
 
   constructor(){}
 
