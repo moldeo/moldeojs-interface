@@ -1,0 +1,8 @@
+<canvas #moCanvas (dblclick)="newMoObject($event)" (mouseenter)="moToolDisplay=false;"></canvas>
+<div #moTool id="moTool" class="moToolAni" [hidden]="!moToolDisplay"></div>
+
+<div id="moConfig" #moConfig (mouseenter)="moToolDisplay=false;">
+  <mo-default [posX]="80" [posY]="80" [name]="'myObj'"></mo-default>
+</div>
+
+<header (mouseenter)="moToolDisplay=false;"></header>

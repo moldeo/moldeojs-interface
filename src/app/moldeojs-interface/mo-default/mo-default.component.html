@@ -1,0 +1,17 @@
+<!--svg #connetions xmlns="http://www.w3.org/2000/svg">
+  <line x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(255,255,255);stroke-width:6" />
+</svg-->
+
+<div class="moContainer" #moDefault [draggable]="true" draggable="true" (dblclick)="showSet()" (click)="toggle=false" (dragstart)="toggle=false">
+  <div class="moInlet">
+  </div>
+  <div class="moObject">
+    <p>Default</p>
+  </div>
+  <div class="moOutlet">
+  </div>
+</div>
+<div #moSettings class="moSettings" [hidden]="!toggle">
+  <p>{{title}}</p>
+  <button type="button" name="button" (click)="testObject()">Test Object</button>
+</div>
