@@ -59,4 +59,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
     this.moTool.nativeElement.style.top = e.clientY-100+"px";
   }
 
+  public zoom(e){
+  }
+
 }

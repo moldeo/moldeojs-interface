@@ -2,13 +2,13 @@
   <line x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(255,255,255);stroke-width:6" />
 </svg-->
 
-<div class="moContainer" #moDefault [draggable]="true" draggable="true" (dblclick)="showSet()" (click)="toggle=false" (dragstart)="toggle=false">
-  <div class="moInlet">
+<div class="moContainer" #moDefault [ngDraggable]="drag" draggable="true" (dblclick)="showSet()" (click)="toggle=false" (dragstart)="toggle=false">
+  <div class="moInlet" (mousedown)="drag=false;" (mouseup)="drag=true;">
   </div>
   <div class="moObject">
     <p>Default</p>
   </div>
-  <div class="moOutlet">
+  <div class="moOutlet" (mousedown)="drag=false;" (mouseup)="drag=true;">
   </div>
 </div>
 <div #moSettings class="moSettings" [hidden]="!toggle">

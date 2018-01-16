@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'mo-default',
@@ -12,14 +12,23 @@ export class MoDefaultComponent implements OnInit {
   @ViewChild('moDefault') moDefault;
   @ViewChild('moSettings') moSettings;
   public toggle:boolean = false;
+  public drag:boolean = true;
 
   public type:string = "moDefault";
   public title:string = "";
 
-  constructor() {}
+  constructor(private renderer: Renderer2) {}
 
   ngOnInit() {
+    let this_ = this;
     this.title = this.type + " - " + this.name;
+    /*Global Listener*/
+    let globalCanvasClick = this.renderer.listen(document.getElementById('moCanvas'), 'click', (e) => {
+      this_.toggle = false;
+    });
+    let globalMouseUp = this.renderer.listen("document", 'mouseup', (e) => {
+      this_.drag = true;
+    });
   }
 
   ngAfterViewInit(){
@@ -39,4 +48,7 @@ export class MoDefaultComponent implements OnInit {
     console.log("moObject Name: "+this.name);
   }
 
+  consola(){
+    console.log("DragEnd");
+  }
 }

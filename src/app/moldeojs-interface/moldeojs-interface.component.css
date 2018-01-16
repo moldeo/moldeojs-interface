@@ -9,9 +9,9 @@ header{
   left:0;
   width:100%;
   height:40px;
-  background: rgba(50, 75, 97, 0.7);
+  background: rgba(90, 90, 90, 0.7);
   opacity:0.85;
-  border-bottom:2px solid #101010;
+  border-bottom:4px solid #101010;
 }
 .moldeofile{
   float:left;
@@ -33,13 +33,36 @@ header{
   color:#010101;
 }
 .moldeoicon{
-  background-image: url('../../assets/data/moldeo.svg');
+  background-image: url('../../assets/data/moldeo-white.svg');
   background-size: 90%;
   background-repeat:   no-repeat;
   background-position: center center;
   width:70px;
   height:40px;
   float:left;
+}
+.moldeobutton{
+  position:absolute;
+  top:5px;
+  right:10px;
+  width:40px;
+  height:30px;
+  background:#ccc;
+  color:#222;
+  border:2px solid #202020;
+  font-weight: bold;
+  font-size:12px;
+  opacity:0.75;
+  padding:0;
+}
+.moldeobutton:hover{
+  background:#eee;
+  opacity:0.95;
+}
+.moldeobutton:active{
+  color:#eee;
+  background:#222;
+  opacity:0.95;
 }
 #moConfig{
   margin:0;

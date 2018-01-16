@@ -1,7 +1,7 @@
 import { Directive, HostListener, ElementRef, Input } from '@angular/core';
 
 @Directive({
-  selector: '[draggable]'
+  selector: '[ngDraggable]'
 })
 export class DraggableDirective {
   topStart:number=0;
@@ -43,7 +43,7 @@ export class DraggableDirective {
         }
       }
 
-      @Input('draggable')
+      @Input('ngDraggable')
       set allowDrag(value:boolean){
         this._allowDrag = value;
         if(this._allowDrag)

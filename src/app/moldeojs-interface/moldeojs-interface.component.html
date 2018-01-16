@@ -1,4 +1,4 @@
-<canvas #moCanvas (dblclick)="newMoObject($event)" (mouseenter)="moToolDisplay=false;"></canvas>
+<canvas #moCanvas id="moCanvas" (dblclick)="newMoObject($event)" (mouseenter)="moToolDisplay=false;"></canvas>
 <div #moTool id="moTool" class="moToolAni" [hidden]="!moToolDisplay"></div>
 
 <div id="moConfig" #moConfig (mouseenter)="moToolDisplay=false;">
@@ -9,4 +9,5 @@
 <header (mouseenter)="moToolDisplay=false;">
   <div class="moldeoicon"></div>
   <div class="moldeofile">{{moFileName}}</div>
+  <button class="moldeobutton" type="button" name="moButton" title="moldeo Viewer">moV</button>
 </header>
