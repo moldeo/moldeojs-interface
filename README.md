@@ -8,3 +8,7 @@ Interface Component for [MoldeoJS](http://github.com/moldeo/moldeojs).
 ## Serve
 `npm start`
 
+## Contact
+WebSite: http://moldeo.org
+
+eMail: info@moldeo.org
