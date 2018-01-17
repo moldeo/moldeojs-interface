@@ -15,7 +15,7 @@ export class DraggableDirective {
       ngOnInit(){
         if(this._allowDrag){
           this.element.nativeElement.style.position = 'absolute';
-          this.element.nativeElement.className += ' cursor-draggable';
+          this.element.nativeElement.classList.add('cursor-draggable');
         }
       }
 
@@ -45,9 +45,9 @@ export class DraggableDirective {
       @Input('ngDraggable') set allowDrag(value:boolean){
         this._allowDrag = value;
         if(this._allowDrag){
-          this.element.nativeElement.className += ' cursor-draggable';
+          this.element.nativeElement.classList.add('cursor-draggable');
         }else{
-          this.element.nativeElement.className = this.element.nativeElement.className.replace(' cursor-draggable','');
+          this.element.nativeElement.classList.remove('cursor-draggable');
         }
       }
 }
