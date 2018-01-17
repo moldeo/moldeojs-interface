@@ -1,7 +1,18 @@
-<canvas #moCanvas id="moCanvas" (dblclick)="newMoObject($event)" (mouseenter)="moToolDisplay=false;"></canvas>
-<div #moTool id="moTool" class="moToolAni" [hidden]="!moToolDisplay"></div>
+<canvas #moCanvas id="moCanvas" (dblclick)="newMoObject($event)" (mouseenter)="moWheelDisplay=false;"></canvas>
 
-<div id="moConfig" #moConfig (mouseenter)="moToolDisplay=false;">
+<div #moWheel id="moWheel" class="moWheelAni" [hidden]="!moWheelDisplay">
+  <button class="moTree" id="moEffect">
+    Ƒ
+  </button>
+  <button class="moTree" id="moPreEffect">
+    preƑ
+  </button>
+  <button class="moTree" id="moPosEffect">
+    posƑ
+  </button>
+</div>
+
+<div id="moConfig" #moConfig (mouseenter)="moToolDisplay=false;" style="transform:scale(1)">
   <mo-default [posX]="80" [posY]="80" [name]="'myObj1'"></mo-default>
   <mo-default [posX]="300" [posY]="80" [name]="'myObj2'"></mo-default>
 </div>

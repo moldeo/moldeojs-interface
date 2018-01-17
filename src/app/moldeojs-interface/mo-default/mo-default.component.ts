@@ -19,7 +19,7 @@ export class MoDefaultComponent implements OnInit {
 
   constructor(private renderer: Renderer2) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     let this_ = this;
     this.title = this.type + " - " + this.name;
     /*Global Listener*/
@@ -31,24 +31,20 @@ export class MoDefaultComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(){
+  public ngAfterViewInit(): void{
     this.moDefault.nativeElement.style.left = this.posX+"px";
     this.moDefault.nativeElement.style.top = this.posY+"px";
   }
 
-  showSet(){
+  private showSet(): void{
     this.toggle = true;
     this.moSettings.nativeElement.style.left = this.moDefault.nativeElement.style.left;
     this.moSettings.nativeElement.style.top = this.moDefault.nativeElement.style.top;
   }
 
-  testObject(){
+  private testObject(): void{
     console.log("MoldeoJS");
     console.log("moObject Type: "+this.type);
     console.log("moObject Name: "+this.name);
-  }
-
-  consola(){
-    console.log("DragEnd");
   }
 }
