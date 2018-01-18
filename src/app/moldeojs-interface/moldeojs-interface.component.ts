@@ -1,4 +1,17 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Renderer2,
+  ComponentFactoryResolver,
+  Injector,
+  ApplicationRef,
+  Type
+} from '@angular/core';
+import { HtmlContainer } from './htmlcontainer';
+import { MoDefaultComponent } from './mo-default/mo-default.component';
 
 @Component({
   selector: 'moldeojs-interface',
@@ -23,14 +36,27 @@ export class MoldeojsInterfaceComponent implements OnInit {
   /////////////////////////////////////////////
   /*- moConfig definitions, for save Components -*/
   @ViewChild('moConfig') moConfig: ElementRef;
+  containers: HtmlContainer[] = [];
   /////////////////////////////////////////////
   public moFileName:string = "No File (.MOL)";
+  /////////////////////////////////////////////
+  //- Listeners -//
+  public wheelClick: () => void;
+  public configDblClick: () => void;
+  public svgDblClick: () => void;
 
-  constructor(private renderer: Renderer2){}
+  constructor(private renderer: Renderer2,
+    private factory: ComponentFactoryResolver,
+    private injector: Injector,
+    private appRef: ApplicationRef){}
 
   public ngOnInit(): void {
-    let svgDblClick = this.renderer.listen(document.getElementsByTagName("svg")[document.getElementsByTagName("svg").length - 1], 'dblclick', (e) => {
-      this.newMoObject(e);
+    this.configDblClick = this.renderer.listen(this.moConfig.nativeElement, 'dblclick', (e) => {
+      this.showWheel(e);
+    });
+
+    this.wheelClick = this.renderer.listen(this.moWheel.nativeElement, 'click', (e) => {
+      this.newMOObject(e, 0);
     });
   }
 
@@ -41,6 +67,19 @@ export class MoldeojsInterfaceComponent implements OnInit {
     this.cHeight = (this.moCanvas.nativeElement as HTMLCanvasElement).height;
     this.context = (this.moCanvas.nativeElement as HTMLCanvasElement).getContext('2d');
     this.draw();
+  }
+
+  public ngDoCheck(): void {
+    if(document.getElementsByTagName("svg").length > 0){
+      //Remove configDblClick
+      if(this.configDblClick){
+        this.configDblClick();
+      }
+
+      this.svgDblClick = this.renderer.listen(document.getElementsByTagName("svg")[document.getElementsByTagName("svg").length - 1], 'dblclick', (e) => {
+        this.showWheel(e);
+      });
+    }
   }
 
   private draw(): void {
@@ -54,10 +93,34 @@ export class MoldeojsInterfaceComponent implements OnInit {
     }
   }
 
-  public newMoObject(e:any): void {
+  public showWheel(e:any): void {
     this.moWheelDisplay = true;
     this.moWheel.nativeElement.style.left = e.clientX-100+"px";
     this.moWheel.nativeElement.style.top = e.clientY-100+"px";
+  }
+
+  public newMOObject(e:any, c: number): void {
+    //Hide moWheel
+    this.moWheelDisplay=false;
+
+    //Push moComponent to moConfig
+    const container = new HtmlContainer(this.moConfig.nativeElement, this.appRef, this.factory, this.injector);
+    let componentRef;
+    switch(c) {
+       case 0:
+           componentRef = container.attach(MoDefaultComponent);
+           break;
+       case 1:
+
+           break;
+       default:
+           componentRef = container.attach(MoDefaultComponent);
+    }
+    componentRef.instance.posX = e.clientX;
+    componentRef.instance.posY = e.clientY;
+    componentRef.instance.name = "Obj1";
+
+    this.containers.push(container);
   }
 
 }

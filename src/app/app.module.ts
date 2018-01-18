@@ -15,6 +15,7 @@ import { DraggableDirective } from './moldeojs-interface/draggable.directive';
     MoDefaultComponent,
     DraggableDirective
   ],
+  entryComponents: [MoDefaultComponent],
   imports: [
     BrowserModule
   ],
