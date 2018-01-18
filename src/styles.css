@@ -9,3 +9,7 @@ html, body{
   min-height:100%;
   font-family: monospace;
 }
+
+svg{
+  position: fixed;
+}

@@ -23,15 +23,14 @@ export class MoldeojsInterfaceComponent implements OnInit {
   /////////////////////////////////////////////
   /*- moConfig definitions, for save Components -*/
   @ViewChild('moConfig') moConfig: ElementRef;
-  public zoomV:number = 1;
   /////////////////////////////////////////////
   public moFileName:string = "No File (.MOL)";
 
   constructor(private renderer: Renderer2){}
 
   public ngOnInit(): void {
-    let globalWheel = this.renderer.listen("document", 'wheel', (e) => {
-      this.zoom(e);
+    let svgDblClick = this.renderer.listen(document.getElementsByTagName("svg")[document.getElementsByTagName("svg").length - 1], 'dblclick', (e) => {
+      this.newMoObject(e);
     });
   }
 
@@ -55,23 +54,10 @@ export class MoldeojsInterfaceComponent implements OnInit {
     }
   }
 
-  public newMoObject(e:any): void{
+  public newMoObject(e:any): void {
     this.moWheelDisplay = true;
     this.moWheel.nativeElement.style.left = e.clientX-100+"px";
     this.moWheel.nativeElement.style.top = e.clientY-100+"px";
-  }
-
-  public zoom(e:any): void{
-    if(e.deltaY < 0){
-      if(this.zoomV <= 1.5){
-        this.zoomV+=0.05;
-      }
-    }else{
-      if(this.zoomV >= 0.5){
-        this.zoomV-=0.05;
-      }
-    }
-    this.moConfig.nativeElement.style.transform = 'scale('+this.zoomV+')';
   }
 
 }

@@ -1,4 +1,4 @@
-<canvas #moCanvas id="moCanvas" (dblclick)="newMoObject($event)" (mouseenter)="moWheelDisplay=false;"></canvas>
+<canvas #moCanvas id="moCanvas"></canvas>
 
 <div #moWheel id="moWheel" class="moWheelAni" [hidden]="!moWheelDisplay">
   <button class="moTree" id="moEffect">
@@ -12,7 +12,7 @@
   </button>
 </div>
 
-<div id="moConfig" #moConfig (mouseenter)="moToolDisplay=false;" style="transform:scale(1)">
+<div id="moConfig" #moConfig (mouseenter)="moWheelDisplay=false;" style="transform:scale(1)">
   <mo-default [posX]="80" [posY]="80" [name]="'myObj1'"></mo-default>
   <mo-default [posX]="300" [posY]="80" [name]="'myObj2'"></mo-default>
 </div>
@@ -21,4 +21,5 @@
   <div class="moldeoicon"></div>
   <div class="moldeofile">{{moFileName}}</div>
   <button class="moldeobutton" type="button" name="moButton" title="moldeo Viewer">moV</button>
+  <button class="moldeobutton" type="button" name="auto" title="automatic">auto</button>
 </header>

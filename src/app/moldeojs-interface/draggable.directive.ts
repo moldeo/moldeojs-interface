@@ -8,7 +8,6 @@ export class DraggableDirective {
   leftStart:number=0;
   _allowDrag:boolean = true;
   md:boolean;
-  scale:number;
 
   constructor(public element: ElementRef) {}
 
@@ -24,21 +23,20 @@ export class DraggableDirective {
             return; //Prevents right click drag
         }
         this.md = true;
-        this.scale = parseFloat(document.getElementById('moConfig').style.transform.replace(/scale\((.+)\)/g, "$1"));
-        this.topStart = event.clientY - (this.element.nativeElement.style.top.replace('px','') * this.scale);
-        this.leftStart = event.clientX - (this.element.nativeElement.style.left.replace('px','') * this.scale);
+        this.topStart = event.clientY - (this.element.nativeElement.style.top.replace('px',''));
+        this.leftStart = event.clientX - (this.element.nativeElement.style.left.replace('px',''));
         this.element.nativeElement.style.zIndex = '90';
       }
 
       @HostListener('document:mouseup') onMouseUp(event:MouseEvent) {
         this.md = false;
-        this.element.nativeElement.style.zIndex = '0';
+        this.element.nativeElement.style.zIndex = '1';
       }
 
       @HostListener('document:mousemove', ['$event']) onMouseMove(event:MouseEvent) {
         if(this.md && this._allowDrag){
-          this.element.nativeElement.style.top = ((event.clientY - this.topStart) / this.scale) + 'px';
-          this.element.nativeElement.style.left = ((event.clientX - this.leftStart) / this.scale) + 'px';
+          this.element.nativeElement.style.top = ((event.clientY - this.topStart)) + 'px';
+          this.element.nativeElement.style.left = ((event.clientX - this.leftStart)) + 'px';
         }
       }
 

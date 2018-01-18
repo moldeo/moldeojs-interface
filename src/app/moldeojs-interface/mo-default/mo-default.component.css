@@ -1,12 +1,9 @@
-svg{
-  position: fixed;
-}
-
 .moContainer{
   width:100px;
   height:68px;
   position:relative;
   user-select: none;
+  z-index: 1;
 }
 
 .moObject{
@@ -44,6 +41,7 @@ svg{
   margin:30px 0 0 50px;
   font-size: 11px;
   user-select: none;
+  z-index:2;
 }
 .moSettings p{
   margin:2px 10px 0 10px;
