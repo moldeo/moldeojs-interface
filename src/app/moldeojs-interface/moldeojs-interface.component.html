@@ -1,7 +1,7 @@
 <canvas #moCanvas id="moCanvas"></canvas>
 
 <div #moWheel id="moWheel" class="moWheelAni" [hidden]="!moWheelDisplay">
-  <button class="moTree" id="moEffect">
+  <button class="moTree" id="moEffect" (click)="newMOObject($event);">
     Ƒ
   </button>
   <button class="moTree" id="moPreEffect">

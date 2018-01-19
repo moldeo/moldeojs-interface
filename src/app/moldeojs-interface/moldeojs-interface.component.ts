@@ -45,18 +45,16 @@ export class MoldeojsInterfaceComponent implements OnInit {
   public configDblClick: () => void;
   public svgDblClick: () => void;
 
-  constructor(private renderer: Renderer2,
+  constructor(
+    private renderer: Renderer2,
     private factory: ComponentFactoryResolver,
     private injector: Injector,
-    private appRef: ApplicationRef){}
+    private appRef: ApplicationRef
+  ){}
 
   public ngOnInit(): void {
     this.configDblClick = this.renderer.listen(this.moConfig.nativeElement, 'dblclick', (e) => {
       this.showWheel(e);
-    });
-
-    this.wheelClick = this.renderer.listen(this.moWheel.nativeElement, 'click', (e) => {
-      this.newMOObject(e, 0);
     });
   }
 

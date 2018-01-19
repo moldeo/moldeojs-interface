@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
 
 @Component({
   selector: 'mo-default',
@@ -12,6 +12,7 @@ export class MoDefaultComponent implements OnInit {
   @ViewChild('moDefault') moDefault;
   @ViewChild('moSettings') moSettings;
   @ViewChild('moConnect') moConnect;
+  @ViewChild('moPrecon') moPrecon;
   public toggle:boolean = false;
   public drag:boolean = true;
 
@@ -20,6 +21,7 @@ export class MoDefaultComponent implements OnInit {
 
   public pathStraight:number = 10;
   public pathCurve:number = 60;
+  public pathDraw:boolean = false;
 
   public globalMouseMove: () => void;
 
@@ -37,8 +39,8 @@ export class MoDefaultComponent implements OnInit {
       this_.drag = true;
       if (this_.globalMouseMove) {
         this_.globalMouseMove();
-        if(this_.moConnect.nativeElement.children[this_.moConnect.nativeElement.children.length - 1]){
-            this_.moConnect.nativeElement.children[this_.moConnect.nativeElement.children.length - 1].remove();
+        if(this_.moPrecon.nativeElement.children[0]){
+            this_.moPrecon.nativeElement.children[0].remove();
         }
       }
     });
@@ -50,7 +52,8 @@ export class MoDefaultComponent implements OnInit {
     /********************************************************/
     this.moConnect.nativeElement.style.width = screen.width+"px";
     this.moConnect.nativeElement.style.height = screen.height+"px";
-
+    this.moPrecon.nativeElement.style.width = screen.width+"px";
+    this.moPrecon.nativeElement.style.height = screen.height+"px";
   }
 
   private showSet(): void{
@@ -61,22 +64,39 @@ export class MoDefaultComponent implements OnInit {
 
   private dataOut(e): void{
     let this_ = this;
-    let x = parseInt(this.moDefault.nativeElement.style.left.replace("px","")) + 96;
-    let y = parseInt(this.moDefault.nativeElement.style.top.replace("px","")) + 60;
+    let onInlet:boolean = false;
+    let x:number = parseInt(this.moDefault.nativeElement.style.left.replace("px","")) + 96;
+    let y:number = parseInt(this.moDefault.nativeElement.style.top.replace("px","")) + 60;
 
-    this.moConnect.nativeElement.innerHTML +='<g><path style="fill:none;stroke-linecap:square;stroke-width:5;" d="" stroke="#12aced"></path></g>';
+    this.moPrecon.nativeElement.innerHTML += '<g><path style="fill:none;stroke-linecap:square;stroke-width:5;" d="" stroke="#12aced"></path></g>';
+
+    let overInlet = this.renderer.listen("document", "mouseup", (e) =>{
+      if(onInlet){
+        let tx:number = parseInt(e.target.offsetParent.style.left.replace("px","")) + e.target.clientWidth/2;
+        let ty:number = parseInt(e.target.offsetParent.style.top.replace("px","")) + e.target.clientHeight/2;
+        let curve = this.svgPath(x, y, tx, ty);
+        this.moConnect.nativeElement.innerHTML += '<g><path style="fill:none;stroke-linecap:square;stroke-width:5;" d="" stroke="#12aced"></path></g>';
+        this_.moConnect.nativeElement.children[this_.moConnect.nativeElement.children.length - 1].children[0].setAttribute("d", curve);
+        overInlet();
+      }
+    });
 
     this.globalMouseMove = this.renderer.listen("document", 'mousemove', (e) => {
-      let curve = this.svgPath(x, y, e);
-      this_.moConnect.nativeElement.children[this_.moConnect.nativeElement.children.length - 1].children[0].setAttribute("d", curve);
+      let curve = this.svgPath(x, y, e.clientX, e.clientY);
+      this_.moPrecon.nativeElement.children[this_.moPrecon.nativeElement.children.length - 1].children[0].setAttribute("d", curve);
+      if(e.target.className == "moInlet"){
+        onInlet = true;
+      }else{
+        onInlet = false;
+      }
     });
   }
 
-  private svgPath(x:number, y:number, e:any): string {
+  private svgPath(x:number, y:number, tx:number, ty:number): string {
     let fromX = x;
     let fromY = y;
-    let toX = (e.clientX);
-    let toY = (e.clientY);
+    let toX = tx;
+    let toY = ty;
 
     return "M "+ fromX +" "+ fromY +
       " L "+ (fromX+this.pathStraight) +" "+ fromY +

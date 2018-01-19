@@ -88,3 +88,7 @@
 .moOutlet:hover{
   background: #ff253a;
 }
+/*-Connections-*/
+#moPrecon{
+  opacity:0.5;
+}
