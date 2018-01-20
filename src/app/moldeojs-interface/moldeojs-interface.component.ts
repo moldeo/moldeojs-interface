@@ -53,8 +53,10 @@ export class MoldeojsInterfaceComponent implements OnInit {
   ){}
 
   public ngOnInit(): void {
-    this.configDblClick = this.renderer.listen(this.moConfig.nativeElement, 'dblclick', (e) => {
-      this.showWheel(e);
+    this.configDblClick = this.renderer.listen("document", 'dblclick', (e) => {
+      if(e.target.className !== "moObject"){
+          this.showWheel(e);
+      }
     });
   }
 
@@ -65,19 +67,6 @@ export class MoldeojsInterfaceComponent implements OnInit {
     this.cHeight = (this.moCanvas.nativeElement as HTMLCanvasElement).height;
     this.context = (this.moCanvas.nativeElement as HTMLCanvasElement).getContext('2d');
     this.draw();
-  }
-
-  public ngDoCheck(): void {
-    if(document.getElementsByTagName("svg").length > 0){
-      //Remove configDblClick
-      if(this.configDblClick){
-        this.configDblClick();
-      }
-
-      this.svgDblClick = this.renderer.listen(document.getElementsByTagName("svg")[document.getElementsByTagName("svg").length - 1], 'dblclick', (e) => {
-        this.showWheel(e);
-      });
-    }
   }
 
   private draw(): void {
@@ -119,6 +108,9 @@ export class MoldeojsInterfaceComponent implements OnInit {
     componentRef.instance.name = "Obj1";
 
     this.containers.push(container);
+
+    //Log to Console
+    console.log("moObject type "+componentRef.instance.type+" created sucessful!");
   }
 
 }

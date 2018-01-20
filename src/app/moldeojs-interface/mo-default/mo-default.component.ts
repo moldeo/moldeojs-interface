@@ -24,6 +24,8 @@ export class MoDefaultComponent implements OnInit {
   public pathDraw:boolean = false;
 
   public globalMouseMove: () => void;
+  public globalMouseUp: () => void;
+  public globalClick: () => void;
 
   constructor(private renderer: Renderer2) {}
 
@@ -32,10 +34,10 @@ export class MoDefaultComponent implements OnInit {
     this.title = this.type + " - " + this.name;
 
     /*Global Listener*/
-    let globalClick = this.renderer.listen("document", 'click', () => {
+    this.globalClick = this.renderer.listen("document", 'click', () => {
       this_.toggle = false;
     });
-    let globalMouseUp = this.renderer.listen("document", 'mouseup', () => {
+    this.globalMouseUp = this.renderer.listen("document", 'mouseup', () => {
       this_.drag = true;
       if (this_.globalMouseMove) {
         this_.globalMouseMove();
@@ -44,6 +46,24 @@ export class MoDefaultComponent implements OnInit {
         }
       }
     });
+  }
+
+  public ngDoCheck(): void{
+    if(this.moConnect.nativeElement.children.length > 0){
+      if(this.drag){
+        for(let i = 0; i < this.moConnect.nativeElement.children.length; i++){
+          let outlet:any = this.moConnect.nativeElement.children[i].outlet;
+          let inlet:any = this.moConnect.nativeElement.children[i].inlet;
+          let toX:number = parseInt(outlet.offsetParent.style.left.replace("px","")) + 96;
+          let toY:number = parseInt(outlet.offsetParent.style.top.replace("px","")) + 60;
+          let fromX:number = parseInt(inlet.offsetParent.style.left.replace("px","")) + inlet.clientWidth/2;
+          let fromY:number = parseInt(inlet.offsetParent.style.top.replace("px","")) + inlet.clientHeight/2;
+
+          let curve = this.svgPath(toX, toY, fromX, fromY);
+          this.moConnect.nativeElement.children[i].children[0].setAttribute("d", curve);
+        }
+      }
+    }
   }
 
   public ngAfterViewInit(): void{
@@ -56,15 +76,27 @@ export class MoDefaultComponent implements OnInit {
     this.moPrecon.nativeElement.style.height = screen.height+"px";
   }
 
+  public ngOnDestroy(): void{
+    //DESTROY LISTENER WHEN DESTROY Component
+    this.globalMouseUp();
+    this.globalClick();
+    this.globalMouseMove();
+  }
+  /*- LYFE CYCLE END -*/
+
+  ///////////////////////////////////////////////////////////////////
+  /*- moObject Funs -*/
+  ///////////////////////////////////////////////////////////////////
   private showSet(): void{
     this.toggle = true;
     this.moSettings.nativeElement.style.left = this.moDefault.nativeElement.style.left;
     this.moSettings.nativeElement.style.top = this.moDefault.nativeElement.style.top;
   }
 
-  private dataOut(e): void{
+  private dataOut(e:any): void{
     let this_ = this;
     let onInlet:boolean = false;
+    let out:any = e.target;
     let x:number = parseInt(this.moDefault.nativeElement.style.left.replace("px","")) + 96;
     let y:number = parseInt(this.moDefault.nativeElement.style.top.replace("px","")) + 60;
 
@@ -75,14 +107,22 @@ export class MoDefaultComponent implements OnInit {
         let tx:number = parseInt(e.target.offsetParent.style.left.replace("px","")) + e.target.clientWidth/2;
         let ty:number = parseInt(e.target.offsetParent.style.top.replace("px","")) + e.target.clientHeight/2;
         let curve = this.svgPath(x, y, tx, ty);
-        this.moConnect.nativeElement.innerHTML += '<g><path style="fill:none;stroke-linecap:square;stroke-width:5;" d="" stroke="#12aced"></path></g>';
+        let newG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        this.moConnect.nativeElement.appendChild(newG);
+        let newPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        this_.moConnect.nativeElement.children[this_.moConnect.nativeElement.children.length - 1].appendChild(newPath);
+        this_.moConnect.nativeElement.children[this_.moConnect.nativeElement.children.length - 1].children[0].setAttribute("style", "fill:none;stroke-linecap:square;stroke-width:5;");
+        this_.moConnect.nativeElement.children[this_.moConnect.nativeElement.children.length - 1].children[0].setAttribute("stroke", "#12aced");
         this_.moConnect.nativeElement.children[this_.moConnect.nativeElement.children.length - 1].children[0].setAttribute("d", curve);
+        this_.moConnect.nativeElement.children[this_.moConnect.nativeElement.children.length - 1].outlet = out;
+        this_.moConnect.nativeElement.children[this_.moConnect.nativeElement.children.length - 1].inlet = e.target;
         overInlet();
       }
     });
 
     this.globalMouseMove = this.renderer.listen("document", 'mousemove', (e) => {
       let curve = this.svgPath(x, y, e.clientX, e.clientY);
+      console.log();
       this_.moPrecon.nativeElement.children[this_.moPrecon.nativeElement.children.length - 1].children[0].setAttribute("d", curve);
       if(e.target.className == "moInlet"){
         onInlet = true;
