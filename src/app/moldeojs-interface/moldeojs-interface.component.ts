@@ -54,7 +54,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
 
   public ngOnInit(): void {
     this.configDblClick = this.renderer.listen("document", 'dblclick', (e) => {
-      if(e.target.className !== "moObject"){
+      if(e.target.className !== "moObject" && e.target.className !== "moHeader"){
           this.showWheel(e);
       }
     });
@@ -78,6 +78,25 @@ export class MoldeojsInterfaceComponent implements OnInit {
         this.context.fillRect(x, y, 2, 2);
       }
     }
+  }
+
+  public autoLayout(): void{
+    console.log("Init Automatic LayOut");
+    let posY = [];
+    for(let i=0;i<this.moConfig.nativeElement.children.length;i++){
+      posY[i] = parseInt(this.moConfig.nativeElement.children[i].children[0].style.top.replace("px",""));
+    }
+    for(let i=0;i<posY.length;i++){
+      if(i !== 0){
+        if(Math.abs(posY[i-1] - posY[i]) < 68){
+          posY[i] = posY[i-1];
+        }
+      }
+    }
+    for(let i=0;i<this.moConfig.nativeElement.children.length;i++){
+      this.moConfig.nativeElement.children[i].children[0].style.top = posY[i]+"px";
+    }
+    console.log("Automatic LayOut Ended");
   }
 
   public showWheel(e:any): void {
