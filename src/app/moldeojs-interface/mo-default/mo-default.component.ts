@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'mo-default',
@@ -21,7 +21,6 @@ export class MoDefaultComponent implements OnInit {
 
   public pathStraight:number = 10;
   public pathCurve:number = 60;
-  public pathDraw:boolean = false;
 
   public globalMouseMove: () => void;
   public globalMouseUp: () => void;
@@ -122,7 +121,6 @@ export class MoDefaultComponent implements OnInit {
 
     this.globalMouseMove = this.renderer.listen("document", 'mousemove', (e) => {
       let curve = this.svgPath(x, y, e.clientX, e.clientY);
-      console.log();
       this_.moPrecon.nativeElement.children[this_.moPrecon.nativeElement.children.length - 1].children[0].setAttribute("d", curve);
       if(e.target.className == "moInlet"){
         onInlet = true;
@@ -148,5 +146,6 @@ export class MoDefaultComponent implements OnInit {
     console.log("MoldeoJS");
     console.log("moObject Type: "+this.type);
     console.log("moObject Name: "+this.name);
+    console.log(this.type + " " + this.name + " connections: "+this.moConnect.nativeElement.children.length);
   }
 }

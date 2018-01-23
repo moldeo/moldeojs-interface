@@ -1,18 +1,32 @@
-<canvas #moCanvas id="moCanvas"></canvas>
+<canvas #moCanvas id="moCanvas" (mouseenter)="moWheelDisplay=false;"></canvas>
 
-<div #moWheel id="moWheel" class="moWheelAni" [hidden]="!moWheelDisplay">
-  <button class="moTree" id="moEffect" (click)="newMOObject($event);">
-    Ƒ
-  </button>
-  <button class="moTree" id="moPreEffect">
-    preƑ
-  </button>
-  <button class="moTree" id="moPosEffect">
-    posƑ
-  </button>
+<div #moWheel id="moWheel" [hidden]="!moWheelDisplay">
+  <div class="circle moWheelAni">
+
+  </div>
+  <div class="objectSelect selectAni">
+    <h3>PreEffects</h3>
+    <ul>
+      <li name="erase" (click)="newMOObject($event)">Erase</li>
+      <li name="mirror" (click)="newMOObject($event)">Mirror</li>
+      <li name="mirrorg" (click)="newMOObject($event)">MirrorG</li>
+      <li name="mirrormorphing" (click)="newMOObject($event)">MirrorMorphing</li>
+    </ul>
+    <h3>Effects</h3>
+    <ul>
+      <li name="icon" (click)="newMOObject($event)">Icon</li>
+      <li name="img" (click)="newMOObject($event)">Image</li>
+      <li name="plane" (click)="newMOObject($event)">Plane</li>
+      <li name="particle" (click)="newMOObject($event)">ParticlesSimple</li>
+      <li name="camera" (click)="newMOObject($event)">Camera</li>
+    </ul>
+    <h3>PosEffects</h3>
+    <ul>
+    </ul>
+  </div>
 </div>
 
-<div id="moConfig" #moConfig (mouseenter)="moWheelDisplay=false;" style="transform:scale(1)">
+<div id="moConfig" #moConfig (mouseenter)="moWheelDisplay=false;">
 </div>
 
 <header (mouseenter)="moToolDisplay=false;">

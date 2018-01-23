@@ -82,8 +82,8 @@ export class MoldeojsInterfaceComponent implements OnInit {
 
   public showWheel(e:any): void {
     this.moWheelDisplay = true;
-    this.moWheel.nativeElement.style.left = e.clientX-100+"px";
-    this.moWheel.nativeElement.style.top = e.clientY-100+"px";
+    this.moWheel.nativeElement.style.left = e.clientX-40+"px";
+    this.moWheel.nativeElement.style.top = e.clientY-40+"px";
   }
 
   public newMOObject(e:any, c: number): void {
