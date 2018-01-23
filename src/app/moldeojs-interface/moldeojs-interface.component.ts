@@ -86,7 +86,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
     this.moWheel.nativeElement.style.top = e.clientY-40+"px";
   }
 
-  public newMOObject(e:any, c: number): void {
+  public newMOObject(c: number): void {
     //Hide moWheel
     this.moWheelDisplay=false;
 
@@ -95,16 +95,14 @@ export class MoldeojsInterfaceComponent implements OnInit {
     let componentRef;
     switch(c) {
        case 0:
-           componentRef = container.attach(MoDefaultComponent);
            break;
        case 1:
-
            break;
        default:
            componentRef = container.attach(MoDefaultComponent);
     }
-    componentRef.instance.posX = e.clientX;
-    componentRef.instance.posY = e.clientY;
+    componentRef.instance.posX = this.moWheel.nativeElement.style.left.replace("px","");
+    componentRef.instance.posY = this.moWheel.nativeElement.style.top.replace("px","");
     componentRef.instance.name = "Obj1";
 
     this.containers.push(container);

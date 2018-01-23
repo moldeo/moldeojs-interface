@@ -97,7 +97,7 @@ h3{
 }
 @keyframes selectMove {
     from {width:1px;border-right:0px solid #101010;}
-    to {width:200px;border-right:2px solid #101010;}
+    to {width:200px;border-right:4px solid #101010;}
 }
 .moWheelAni{
   animation: moWheelMove 0.3s;
