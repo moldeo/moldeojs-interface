@@ -54,7 +54,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
 
   public ngOnInit(): void {
     this.configDblClick = this.renderer.listen("document", 'dblclick', (e) => {
-      if(e.target.className !== "moObject" && e.target.className !== "moHeader"){
+      if(e.target.className !== "moObject" && e.target.className !== "moHeader" && e.target.className !== "moldeobutton"){
           this.showWheel(e);
       }
     });
@@ -83,18 +83,18 @@ export class MoldeojsInterfaceComponent implements OnInit {
   public autoLayout(): void{
     console.log("Init Automatic LayOut");
     let posY = [];
+    let posX = [];
     for(let i=0;i<this.moConfig.nativeElement.children.length;i++){
       posY[i] = parseInt(this.moConfig.nativeElement.children[i].children[0].style.top.replace("px",""));
-    }
-    for(let i=0;i<posY.length;i++){
-      if(i !== 0){
-        if(Math.abs(posY[i-1] - posY[i]) < 68){
-          posY[i] = posY[i-1];
-        }
+      posX[i] = parseInt(this.moConfig.nativeElement.children[i].children[0].style.left.replace("px",""));
+      if(posY[i] % 60 !== 0){
+        posY[i] = Math.round(posY[i] / 60) * 60;
       }
-    }
-    for(let i=0;i<this.moConfig.nativeElement.children.length;i++){
+      if(posX[i] % 60 !== 0){
+        posX[i] = Math.round(posX[i] / 60) * 60;
+      }
       this.moConfig.nativeElement.children[i].children[0].style.top = posY[i]+"px";
+      this.moConfig.nativeElement.children[i].children[0].style.left = posX[i]+"px";
     }
     console.log("Automatic LayOut Ended");
   }
