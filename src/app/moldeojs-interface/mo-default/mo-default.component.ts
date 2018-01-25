@@ -53,8 +53,10 @@ export class MoDefaultComponent implements OnInit {
         for(let i = 0; i < this.moConnect.nativeElement.children.length; i++){
           let outlet:any = this.moConnect.nativeElement.children[i].outlet;
           let inlet:any = this.moConnect.nativeElement.children[i].inlet;
-          let toX:number = parseInt(outlet.offsetParent.style.left.replace("px","")) + 96;
-          let toY:number = parseInt(outlet.offsetParent.style.top.replace("px","")) + 60;
+          let toX:number = parseInt(this.moDefault.nativeElement.style.left.replace("px","")) +
+          this.moDefault.nativeElement.clientWidth - outlet.clientWidth/2;
+          let toY:number = parseInt(this.moDefault.nativeElement.style.top.replace("px","")) +
+          this.moDefault.nativeElement.clientHeight - outlet.clientHeight/2;
           let fromX:number = parseInt(inlet.offsetParent.style.left.replace("px","")) + inlet.clientWidth/2;
           let fromY:number = parseInt(inlet.offsetParent.style.top.replace("px","")) + inlet.clientHeight/2;
 
@@ -77,11 +79,17 @@ export class MoDefaultComponent implements OnInit {
 
   public ngOnDestroy(): void{
     //DESTROY LISTENER WHEN DESTROY Component
-    this.globalMouseUp();
-    this.globalClick();
-    this.globalMouseMove();
+    if(this.globalMouseUp){
+      this.globalMouseUp();
+    }
+    if(this.globalClick){
+      this.globalClick();
+    }
+    if(this.globalMouseMove){
+      this.globalMouseMove();
+    }
   }
-  /*- LYFE CYCLE END -*/
+  /*- LYFECYCLE END -*/
 
   ///////////////////////////////////////////////////////////////////
   /*- moObject Funs -*/
@@ -96,8 +104,10 @@ export class MoDefaultComponent implements OnInit {
     let this_ = this;
     let onInlet:boolean = false;
     let out:any = e.target;
-    let x:number = parseInt(this.moDefault.nativeElement.style.left.replace("px","")) + 96;
-    let y:number = parseInt(this.moDefault.nativeElement.style.top.replace("px","")) + 60;
+    let x:number = parseInt(this.moDefault.nativeElement.style.left.replace("px","")) +
+    this.moDefault.nativeElement.clientWidth - e.target.clientWidth/2;
+    let y:number = parseInt(this.moDefault.nativeElement.style.top.replace("px","")) +
+    this.moDefault.nativeElement.clientHeight - e.target.clientHeight/2;
 
     this.moPrecon.nativeElement.innerHTML += '<g><path style="fill:none;stroke-linecap:square;stroke-width:5;" d="" stroke="#12aced"></path></g>';
 

@@ -41,9 +41,8 @@ export class MoldeojsInterfaceComponent implements OnInit {
   public moFileName:string = "No File (.MOL)";
   /////////////////////////////////////////////
   //- Listeners -//
-  public wheelClick: () => void;
   public configDblClick: () => void;
-  public svgDblClick: () => void;
+  public globalKeyDown: () => void;
 
   constructor(
     private renderer: Renderer2,
@@ -60,6 +59,14 @@ export class MoldeojsInterfaceComponent implements OnInit {
     });
   }
 
+  public ngDoCheck(): void{
+    if(!this.moWheelDisplay){
+      if(this.globalKeyDown){
+          this.globalKeyDown(); //Remove the KeyDown Listener
+      }
+    }
+  }
+
   public ngAfterViewInit(): void {
     (this.moCanvas.nativeElement as HTMLCanvasElement).width = window.innerWidth;
     (this.moCanvas.nativeElement as HTMLCanvasElement).height = window.innerHeight;
@@ -70,7 +77,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
   }
 
   private draw(): void {
-    this.context.fillStyle = "#222";
+    this.context.fillStyle = "#111";
     this.context.fillRect(0, 0, this.cWidth, this.cHeight);
     this.context.fillStyle = "#666";
     for (let x = 0; x < this.cWidth; x+=30) {
@@ -103,6 +110,10 @@ export class MoldeojsInterfaceComponent implements OnInit {
     this.moWheelDisplay = true;
     this.moWheel.nativeElement.style.left = e.clientX-40+"px";
     this.moWheel.nativeElement.style.top = e.clientY-40+"px";
+    ///////////////////////////
+    this.globalKeyDown = this.renderer.listen("document", "keydown", (e) => {
+      console.log(e.key);
+    });
   }
 
   public newMOObject(c: number): void {

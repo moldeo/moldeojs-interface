@@ -97,8 +97,8 @@ h3{
     to {width:80px;height:80px;margin:0;}
 }
 @keyframes selectMove {
-    from {width:1px;border-right:0px solid #101010;}
-    to {width:200px;border-right:4px solid #101010;}
+    from {width:1px;border-right:0px solid #353535;}
+    to {width:200px;border-right:4px solid #353535;}
 }
 .moWheelAni{
   animation: moWheelMove 0.3s;
@@ -128,7 +128,7 @@ h3{
   position:absolute;
   margin:0;
   border-radius: 50%;
-  border:4px solid #101010;
+  border:4px solid #353535;
   background: #eee;
   background-image: url('../../assets/data/moldeo.svg');
   background-size: 90%;
@@ -143,8 +143,8 @@ h3{
   top:15px;
   left:75px;
   background: #eee;
-  border-top:4px solid #101010;
-  border-bottom:4px solid #101010;
+  border-top:4px solid #353535;
+  border-bottom:4px solid #353535;
   overflow-y:scroll;
   overflow-x:hidden;
 }
