@@ -1,15 +1,11 @@
-<div class="moContainer" #moDefault [ngDraggable]="drag" draggable="true" (click)="toggle=false" (dragstart)="toggle=false">
+<div class="moContainer" #moErase [ngDraggable]="drag" draggable="true" (click)="toggle=false" (dragstart)="toggle=false">
   <div class="moInlet" (mousedown)="drag=false;" (mouseup)="drag=true;">
   </div>
   <div class="moObject" (dblclick)="showSet()">
-    <p>Default</p>
+    <p>Erase</p>
   </div>
-  <div class="moOutlet" (mousedown)="drag=false;con.dataOut($event, moDefault, moPrecon, moConnect);" (mouseup)="drag=true;">
+  <div class="moOutlet" (mousedown)="drag=false;con.dataOut($event, moErase, moPrecon, moConnect);" (mouseup)="drag=true;">
   </div>
-</div>
-<div #moSettings class="moSettings" [hidden]="!toggle">
-  <p>{{title}}</p>
-  <button type="button" name="button" (click)="testObject()">Test Object</button>
 </div>
 
 <svg #moPrecon id="moPrecon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">

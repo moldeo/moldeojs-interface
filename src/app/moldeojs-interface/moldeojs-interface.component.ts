@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { HtmlContainer } from './htmlcontainer';
 import { MoDefaultComponent } from './mo-default/mo-default.component';
+import { MoErase } from './mo-erase/mo-erase.component';
 
 @Component({
   selector: 'moldeojs-interface',
@@ -116,7 +117,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
     });
   }
 
-  public newMOObject(c: number): void {
+  public newMOObject(c: string): void {
     //Hide moWheel
     this.moWheelDisplay=false;
 
@@ -124,9 +125,8 @@ export class MoldeojsInterfaceComponent implements OnInit {
     const container = new HtmlContainer(this.moConfig.nativeElement, this.appRef, this.factory, this.injector);
     let componentRef;
     switch(c) {
-       case 0:
-           break;
-       case 1:
+       case 'erase':
+           componentRef = container.attach(MoErase);
            break;
        default:
            componentRef = container.attach(MoDefaultComponent);

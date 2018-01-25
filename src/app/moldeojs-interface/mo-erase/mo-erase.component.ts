@@ -2,22 +2,22 @@ import { Component, OnInit, Input, ViewChild, Renderer2 } from '@angular/core';
 import { ConnectionsService } from '../services/connections.service';
 
 @Component({
-  selector: 'mo-default',
-  templateUrl: './mo-default.component.html',
-  styleUrls: ['./mo-default.component.css']
+  selector: 'mo-erase',
+  templateUrl: './mo-erase.component.html',
+  styleUrls: ['./mo-erase.component.css']
 })
-export class MoDefaultComponent implements OnInit {
+export class MoErase implements OnInit {
   @Input() public posX:number = 0;
   @Input() public posY:number = 0;
   @Input() public name:string = "";
-  @ViewChild('moDefault') moDefault;
+  @ViewChild('moErase') moErase;
   @ViewChild('moSettings') moSettings;
   @ViewChild('moConnect') moConnect;
   @ViewChild('moPrecon') moPrecon;
   public toggle:boolean = false;
   public drag:boolean = true;
 
-  public type:string = "moDefault";
+  public type:string = "moErase";
   public title:string = "";
 
   public globalMouseUp: () => void;
@@ -43,14 +43,14 @@ export class MoDefaultComponent implements OnInit {
   public ngDoCheck(): void{
     if(this.moConnect.nativeElement.children.length > 0){
       if(this.drag){
-        this.con.updateCon(this.moDefault, this.moConnect);
+        this.con.updateCon(this.moErase, this.moConnect);
       }
     }
   }
 
   public ngAfterViewInit(): void{
-    this.moDefault.nativeElement.style.left = this.posX+"px";
-    this.moDefault.nativeElement.style.top = this.posY+"px";
+    this.moErase.nativeElement.style.left = this.posX+"px";
+    this.moErase.nativeElement.style.top = this.posY+"px";
     /********************************************************/
     this.moConnect.nativeElement.style.width = screen.width+"px";
     this.moConnect.nativeElement.style.height = screen.height+"px";
@@ -74,14 +74,8 @@ export class MoDefaultComponent implements OnInit {
   ///////////////////////////////////////////////////////////////////
   private showSet(): void{
     this.toggle = true;
-    this.moSettings.nativeElement.style.left = this.moDefault.nativeElement.style.left;
-    this.moSettings.nativeElement.style.top = this.moDefault.nativeElement.style.top;
+    this.moSettings.nativeElement.style.left = this.moErase.nativeElement.style.left;
+    this.moSettings.nativeElement.style.top = this.moErase.nativeElement.style.top;
   }
 
-  private testObject(): void{
-    console.log("MoldeoJS");
-    console.log("moObject Type: "+this.type);
-    console.log("moObject Name: "+this.name);
-    console.log(this.type + " " + this.name + " connections: "+this.moConnect.nativeElement.children.length);
-  }
 }
