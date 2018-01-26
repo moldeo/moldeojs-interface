@@ -2,7 +2,7 @@ import { Injectable, Renderer2 } from '@angular/core';
 
 @Injectable()
 export class ConnectionsService {
-  public renderer : Renderer2;
+  public renderer: Renderer2;
   //Vars for Drawing
   public pathStraight:number = 10;
   public pathCurve:number = 60;
@@ -13,7 +13,7 @@ export class ConnectionsService {
 
   constructor() { }
 
-  public dataOut(e:any, moObj:any, moPcon:any, moCon:any): void{
+  public dataOut(e:any, moObj:any, moPcon:any, moCon:any, color:string): void{
     let this_ = this;
     let onInlet:boolean = false;
     let out:any = e.target;
@@ -22,7 +22,7 @@ export class ConnectionsService {
     let y:number = parseInt(moObj.style.top.replace("px","")) +
     moObj.clientHeight - e.target.clientHeight/2;
 
-    moPcon.innerHTML = '<g><path style="fill:none;stroke-linecap:square;stroke-width:5;" d="" stroke="#12aced"></path></g>';
+    moPcon.innerHTML = '<g><path style="fill:none;stroke-linecap:square;stroke-width:5;" d="" stroke="#'+color+'"></path></g>';
 
     let overInlet = this.renderer.listen("document", "mouseup", (e) =>{
       if(onInlet){
@@ -34,7 +34,7 @@ export class ConnectionsService {
         let newPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
         moCon.children[moCon.children.length - 1].appendChild(newPath);
         moCon.children[moCon.children.length - 1].children[0].setAttribute("style", "fill:none;stroke-linecap:square;stroke-width:5;");
-        moCon.children[moCon.children.length - 1].children[0].setAttribute("stroke", "#12aced");
+        moCon.children[moCon.children.length - 1].children[0].setAttribute("stroke", "#"+color+"");
         moCon.children[moCon.children.length - 1].children[0].setAttribute("d", curve);
         moCon.children[moCon.children.length - 1].outlet = out;
         moCon.children[moCon.children.length - 1].inlet = e.target;

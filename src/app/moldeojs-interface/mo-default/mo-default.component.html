@@ -1,10 +1,10 @@
 <div class="moContainer" #moDefault [ngDraggable]="drag" draggable="true" (click)="toggle=false" (dragstart)="toggle=false">
-  <div class="moInlet" (mousedown)="drag=false;" (mouseup)="drag=true;">
+  <div class="moInlet" (mousedown)="drag=false;">
   </div>
   <div class="moObject" (dblclick)="showSet()">
     <p>Default</p>
   </div>
-  <div class="moOutlet" (mousedown)="drag=false;con.dataOut($event, moDefault, moPrecon, moConnect);" (mouseup)="drag=true;">
+  <div class="moOutlet" (mousedown)="drag=false;con.dataOut($event, moDefault, moPrecon, moConnect);">
   </div>
 </div>
 <div #moSettings class="moSettings" [hidden]="!toggle">

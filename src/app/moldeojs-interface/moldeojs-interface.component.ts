@@ -133,7 +133,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
     }
     componentRef.instance.posX = this.moWheel.nativeElement.style.left.replace("px","");
     componentRef.instance.posY = this.moWheel.nativeElement.style.top.replace("px","");
-    componentRef.instance.name = "Obj1";
+    componentRef.instance.name = "";
 
     this.containers.push(container);
 
