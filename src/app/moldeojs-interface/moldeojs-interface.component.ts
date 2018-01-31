@@ -60,7 +60,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
     });
   }
 
-  public ngDoCheck(): void{
+  public ngDoCheck(): void {
     if(!this.moWheelDisplay){
       if(this.globalKeyDown){
           this.globalKeyDown(); //Remove the KeyDown Listener
@@ -88,7 +88,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
     }
   }
 
-  public autoLayout(): void{
+  public autoLayout(): void {
     console.log("Init Automatic LayOut");
     let posY = [];
     let posX = [];

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Renderer2, ViewContainerRef } from '@angular/core';
 import { ConnectionsService } from '../services/connections.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class MoDefaultComponent implements OnInit {
   public globalMouseUp: () => void;
   public globalClick: () => void;
 
-  constructor(public con: ConnectionsService, public renderer: Renderer2) {
+  constructor(public con: ConnectionsService, public renderer: Renderer2, public viewCon: ViewContainerRef) {
     con.renderer = renderer;
   }
 
@@ -59,6 +59,21 @@ export class MoDefaultComponent implements OnInit {
   }
 
   public ngOnDestroy(): void{
+    //NULL Vars
+    this.posX = null;
+    this.posY = null;
+    this.name = null;
+    this.moDefault = null;
+    this.moSettings = null;
+    this.moConnect = null;
+    this.moPrecon = null;
+    this.toggle = null;
+    this.drag = null;
+    this.type = null;
+    this.title = null;
+    this.con = null;
+    this.renderer = null;
+    this.viewCon = null;
     //DESTROY LISTENER WHEN DESTROY Component
     if(this.globalMouseUp){
       this.globalMouseUp();
@@ -76,6 +91,10 @@ export class MoDefaultComponent implements OnInit {
     this.toggle = true;
     this.moSettings.nativeElement.style.left = this.moDefault.nativeElement.style.left;
     this.moSettings.nativeElement.style.top = this.moDefault.nativeElement.style.top;
+  }
+
+  private removeMOObject(): void{
+    this.viewCon.element.nativeElement.parentElement.removeChild(this.viewCon.element.nativeElement);
   }
 
   private testObject(): void{

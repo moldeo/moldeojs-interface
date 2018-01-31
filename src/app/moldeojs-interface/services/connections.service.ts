@@ -65,17 +65,21 @@ export class ConnectionsService {
 
   public updateCon(moObj:any, moCon:any): void{
     for(let i = 0; i < moCon.nativeElement.children.length; i++){
-      let outlet:any = moCon.nativeElement.children[i].outlet;
-      let inlet:any = moCon.nativeElement.children[i].inlet;
-      let toX:number = parseInt(moObj.nativeElement.style.left.replace("px","")) +
-      moObj.nativeElement.clientWidth - outlet.clientWidth/2;
-      let toY:number = parseInt(moObj.nativeElement.style.top.replace("px","")) +
-      moObj.nativeElement.clientHeight - outlet.clientHeight/2;
-      let fromX:number = parseInt(inlet.offsetParent.style.left.replace("px","")) + inlet.clientWidth/2;
-      let fromY:number = parseInt(inlet.offsetParent.style.top.replace("px","")) + inlet.clientHeight/2;
+      if(moCon.nativeElement.children[i].inlet.offsetParent){
+        let outlet:any = moCon.nativeElement.children[i].outlet;
+        let inlet:any = moCon.nativeElement.children[i].inlet;
+        let toX:number = parseInt(moObj.nativeElement.style.left.replace("px","")) +
+        moObj.nativeElement.clientWidth - outlet.clientWidth/2;
+        let toY:number = parseInt(moObj.nativeElement.style.top.replace("px","")) +
+        moObj.nativeElement.clientHeight - outlet.clientHeight/2;
+        let fromX:number = parseInt(inlet.offsetParent.style.left.replace("px","")) + inlet.clientWidth/2;
+        let fromY:number = parseInt(inlet.offsetParent.style.top.replace("px","")) + inlet.clientHeight/2;
 
-      let curve = this.svgPath(toX, toY, fromX, fromY);
-      moCon.nativeElement.children[i].children[0].setAttribute("d", curve);
+        let curve = this.svgPath(toX, toY, fromX, fromY);
+        moCon.nativeElement.children[i].children[0].setAttribute("d", curve);
+      }else{
+        moCon.nativeElement.children[i].remove();
+      }
     }
   }
 

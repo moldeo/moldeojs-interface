@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Renderer2, ViewContainerRef } from '@angular/core';
 import { ConnectionsService } from '../services/connections.service';
 
 @Component({
@@ -22,8 +22,9 @@ export class MoErase implements OnInit {
 
   public globalMouseUp: () => void;
   public globalClick: () => void;
+  public globalKey: () => void;
 
-  constructor(public con: ConnectionsService, public renderer: Renderer2) {
+  constructor(public con: ConnectionsService, public renderer: Renderer2, public viewCon: ViewContainerRef) {
     con.renderer = renderer;
   }
 
@@ -32,23 +33,26 @@ export class MoErase implements OnInit {
     this.title = this.type + " - " + this.name;
 
     /*Global Listener*/
-    this.globalClick = this.renderer.listen("document", 'click', () => {
-      this_.toggle = false;
-    });
     this.globalMouseUp = this.renderer.listen("document", 'mouseup', () => {
       this_.drag = true;
     });
+    this.globalClick = this.renderer.listen("document", 'click', () => {
+      this_.toggle = false;
+      if(this.globalKey){
+        this.globalKey();
+      }
+    });
   }
 
-  public ngDoCheck(): void{
-    if(this.moConnect.nativeElement.children.length > 0){
+  public ngDoCheck(): void {
+    if(this.moConnect && this.moConnect.nativeElement.children.length > 0){
       if(this.drag){
         this.con.updateCon(this.moErase, this.moConnect);
       }
     }
   }
 
-  public ngAfterViewInit(): void{
+  public ngAfterViewInit(): void {
     this.moErase.nativeElement.style.left = this.posX+"px";
     this.moErase.nativeElement.style.top = this.posY+"px";
     /********************************************************/
@@ -58,7 +62,22 @@ export class MoErase implements OnInit {
     this.moPrecon.nativeElement.style.height = screen.height+"px";
   }
 
-  public ngOnDestroy(): void{
+  public ngOnDestroy(): void {
+    //NULL Vars
+    this.posX = null;
+    this.posY = null;
+    this.name = null;
+    this.moErase = null;
+    this.moSettings = null;
+    this.moConnect = null;
+    this.moPrecon = null;
+    this.toggle = null;
+    this.drag = null;
+    this.type = null;
+    this.title = null;
+    this.con = null;
+    this.renderer = null;
+    this.viewCon = null;
     //DESTROY LISTENER WHEN DESTROY Component
     if(this.globalMouseUp){
       this.globalMouseUp();
@@ -66,16 +85,30 @@ export class MoErase implements OnInit {
     if(this.globalClick){
       this.globalClick();
     }
+    if(this.globalKey){
+      this.globalKey();
+    }
   }
   /*- LYFECYCLE END -*/
 
   ///////////////////////////////////////////////////////////////////
   /*- moObject Funs -*/
   ///////////////////////////////////////////////////////////////////
-  private showSet(): void{
+  private showSet(): void {
     this.toggle = true;
     this.moSettings.nativeElement.style.left = this.moErase.nativeElement.style.left;
     this.moSettings.nativeElement.style.top = this.moErase.nativeElement.style.top;
+
+    this.globalKey = this.renderer.listen("document", 'keydown', (e) => {
+      if(e.key == "Delete"){
+        this.removeMOObject();
+      }
+    });
+  }
+
+  private removeMOObject(): void{
+    this.viewCon.element.nativeElement.parentElement.removeChild(this.viewCon.element.nativeElement);
+    this.ngOnDestroy();
   }
 
 }
