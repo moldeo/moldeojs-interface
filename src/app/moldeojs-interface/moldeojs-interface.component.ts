@@ -20,13 +20,6 @@ import { MoErase } from './mo-erase/mo-erase.component';
   styleUrls: ['./moldeojs-interface.component.css']
 })
 export class MoldeojsInterfaceComponent implements OnInit {
-  //Template for Canvas Reference
-  @ViewChild('moCanvas') moCanvas: ElementRef;
-  //Render Context for Canvas
-  public context: CanvasRenderingContext2D;
-  //Vars control Canvas
-  public cWidth:number;
-  public cHeight:number;
   /////////////////////////////////////////////
   public title = 'MoldeoJS Interface';
   public xml:any;
@@ -68,25 +61,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
     }
   }
 
-  public ngAfterViewInit(): void {
-    (this.moCanvas.nativeElement as HTMLCanvasElement).width = window.innerWidth;
-    (this.moCanvas.nativeElement as HTMLCanvasElement).height = window.innerHeight;
-    this.cWidth = (this.moCanvas.nativeElement as HTMLCanvasElement).width;
-    this.cHeight = (this.moCanvas.nativeElement as HTMLCanvasElement).height;
-    this.context = (this.moCanvas.nativeElement as HTMLCanvasElement).getContext('2d');
-    this.draw();
-  }
-
-  private draw(): void {
-    this.context.fillStyle = "#111";
-    this.context.fillRect(0, 0, this.cWidth, this.cHeight);
-    this.context.fillStyle = "#666";
-    for (let x = 0; x < this.cWidth; x+=30) {
-      for(let y = 0; y < this.cHeight; y= y+30){
-        this.context.fillRect(x, y, 2, 2);
-      }
-    }
-  }
+  public ngAfterViewInit(): void {}
 
   public autoLayout(): void {
     console.log("Init Automatic LayOut");

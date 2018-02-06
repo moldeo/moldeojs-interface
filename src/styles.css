@@ -10,11 +10,11 @@ html, body{
   font-family: monospace;
 }
 
+/***********START CSS FOR INTERFACE************/
+
 svg{
   position: fixed;
 }
-
-/***********START CSS FOR INTERFACE************/
 
 .moContainer{
   width:100px;
@@ -26,7 +26,7 @@ svg{
 
 .moObject{
   background:#eee;
-  background-image: url('./assets/data/moldeo.svg');
+  background-image: url('./assets/mojs-interface-data/moldeo.svg');
   background-size: 90%;
   background-repeat:   no-repeat;
   background-position: center center;

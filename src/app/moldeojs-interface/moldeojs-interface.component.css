@@ -1,8 +1,3 @@
-canvas{
-  position:fixed;
-  margin:0;
-  padding:0;
-}
 header{
   position:fixed;
   top:0;
@@ -30,6 +25,14 @@ h3{
   font-size:12px;
   border-bottom: 1px solid #010101;
 }
+#moCanvas{
+  position:fixed;
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  background-image: url('../../assets/mojs-interface-data/back.jpg');
+}
 .moldeofile{
   float:left;
   width:50%;
@@ -50,7 +53,7 @@ h3{
   color:#010101;
 }
 .moldeoicon{
-  background-image: url('../../assets/data/moldeo-white.svg');
+  background-image: url('../../assets/mojs-interface-data/moldeo-white.svg');
   background-size: 90%;
   background-repeat:   no-repeat;
   background-position: center center;
@@ -130,7 +133,7 @@ h3{
   border-radius: 50%;
   border:4px solid #353535;
   background: #eee;
-  background-image: url('../../assets/data/moldeo.svg');
+  background-image: url('../../assets/mojs-interface-data/moldeo.svg');
   background-size: 90%;
   background-repeat:   no-repeat;
   background-position: center center;
