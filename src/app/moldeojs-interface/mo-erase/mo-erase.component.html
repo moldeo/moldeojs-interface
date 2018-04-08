@@ -1,4 +1,4 @@
-<div class="moContainer" #moErase [ngDraggable]="drag" draggable="true" (click)="toggle=false;" (dragstart)="toggle=false;">
+<div class="moContainer" #moErase [ngDraggable]="drag" draggable="true" (dragstart)="toggle=false;">
   <div class="moInlet" (mousedown)="drag=false;">
   </div>
   <div class="moObject" (dblclick)="showSet();">
@@ -9,6 +9,20 @@
 </div>
 
 <div #moSettings class="moObjOpen moOpenAni" [hidden]="!toggle">
+  <h4>{{type}}</h4>
+</div>
+
+<div #moParams class="moParams" [hidden]="!toggle">
+  <h2 class="moParamsContent">{{type}}</h2>
+  <ul class="moParamsContent">
+    <li *ngFor="let i of params" class="moParamsContent" (click)="selParam(i)">
+      {{i[0]}}
+    </li>
+  </ul>
+  <h3 class="moParamsContent">{{paramSelect[0]}}</h3>
+  <div #moCurrentParams class="moParamsContent" *ngIf="showParams">
+    <input *ngFor="let i of paramSelect[1]" type="text" class="moParamsContent" value="{{i}}" (keyup)="getNewParam($event)">
+  </div>
 </div>
 
 <svg #moPrecon id="moPrecon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">

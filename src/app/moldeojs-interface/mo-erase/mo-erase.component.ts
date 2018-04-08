@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Renderer2, ViewContainerRef } from '@angular/core';
 import { ConnectionsService } from '../services/connections.service';
+import { ParamsService } from '../services/params.service';
 
 @Component({
   selector: 'mo-erase',
@@ -12,6 +13,8 @@ export class MoErase implements OnInit {
   @Input() public name:string = "";
   @ViewChild('moErase') moErase;
   @ViewChild('moSettings') moSettings;
+  @ViewChild('moParams') moParams;
+  @ViewChild('moCurrentParams') moCurrentParams;
   @ViewChild('moConnect') moConnect;
   @ViewChild('moPrecon') moPrecon;
   public toggle:boolean = false;
@@ -19,12 +22,16 @@ export class MoErase implements OnInit {
 
   public type:string = "moErase";
   public title:string = "";
+  /*PARAMS*/
+  public params:any;
+  public paramSelect:string = "";
+  public showParams:boolean = false;
 
   public globalMouseUp: () => void;
   public globalClick: () => void;
   public globalKey: () => void;
 
-  constructor(public con: ConnectionsService, public renderer: Renderer2, public viewCon: ViewContainerRef) {
+  constructor(public con: ConnectionsService, public par: ParamsService, public renderer: Renderer2, public viewCon: ViewContainerRef) {
     con.renderer = renderer;
   }
 
@@ -32,12 +39,22 @@ export class MoErase implements OnInit {
     let this_ = this;
     this.title = this.type + " - " + this.name;
 
+    this.params = [
+      this.par.createParam('alpha', [0]),
+      this.par.createParam('color', [0, 0, 0, 0]),
+      this.par.createParam('syncro', [0]),
+      this.par.createParam('phase', [0])
+    ];
+
     /*Global Listener*/
     this.globalMouseUp = this.renderer.listen("document", 'mouseup', () => {
       this_.drag = true;
     });
-    this.globalClick = this.renderer.listen("document", 'click', () => {
-      this_.toggle = false;
+    this.globalClick = this.renderer.listen("document", 'click', (e) => {
+      if(e.target.className !== "moParams" && e.target.className !== "moParamsContent"){
+        this_.toggle = false;
+      }
+
       if(this.globalKey){
         this.globalKey();
       }
@@ -104,6 +121,31 @@ export class MoErase implements OnInit {
         this.removeMOObject();
       }
     });
+  }
+
+  public selParam(param): void {
+    let this_ = this;
+    this.paramSelect = param;
+    this.showParams = false;
+    setTimeout(function(){this_.showParams = true;}, 1);
+  }
+
+  public getNewParam(e): void{
+    if(e.key == "Enter"){
+      let this_ = this;
+      let indexPar = Array.from(e.target.parentNode.children).indexOf(e.target);
+      let currentPar = 0;
+
+      for (let i = 0; i < this.params.length; i++) {
+        if(this.params[i][0] === this.paramSelect[0]){
+          currentPar = i;
+        }
+      }
+
+      this_.params[currentPar][1][indexPar] = e.target.value;
+      this.showParams = false;
+      setTimeout(function(){this_.showParams = true;}, 1);
+    }
   }
 
   private removeMOObject(): void{

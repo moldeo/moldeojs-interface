@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global */
 html, body{
   margin:0;
   padding:0;
@@ -11,6 +11,183 @@ html, body{
 }
 
 /***********START CSS FOR INTERFACE************/
+
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:40px;
+  background: rgba(90, 90, 90, 0.7);
+  opacity:0.85;
+  border-bottom:4px solid #101010;
+  z-index: 91;
+}
+ul{
+  margin:0;
+  padding:0;
+  width:100%;
+}
+ul li{
+  list-style-type: none;
+  width:100%;
+  padding:5px 0 5px 10px;
+}
+h3{
+  margin:0;
+  padding:2px 0 0 3px;
+  font-size:12px;
+  border-bottom: 1px solid #010101;
+}
+#moCanvas{
+  position:fixed;
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  background-image: url('./assets/mojs-interface-data/back.jpg');
+}
+.moldeofile{
+  float:left;
+  width:50%;
+  height:21px;
+  background:#a6aab0;
+  margin:7px 0 0 10px;
+  opacity:0.8;
+  padding:2px 0 0 2px;
+  border:1px solid #a6aab0;
+  text-overflow: clip;
+  color:#333;
+  font-family: monospace;
+  font-size:14px;
+}
+.moldeofile:hover{
+  background:#c5cfdc;
+  border:1px solid #202020;
+  color:#010101;
+}
+.moldeoicon{
+  background-image: url('./assets/mojs-interface-data/moldeo-white.svg');
+  background-size: 90%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  width:70px;
+  height:40px;
+  float:left;
+}
+.moldeobutton{
+  position:relative;
+  margin-right:10px;
+  top:5px;
+  right:0;
+  width:auto;
+  height:30px;
+  background:#ccc;
+  color:#222;
+  border:2px solid #202020;
+  font-weight: bold;
+  font-size:12px;
+  opacity:0.75;
+  padding:0 5px;
+  float:right;
+  outline:none;
+}
+.moldeobutton:hover{
+  background:#eee;
+  opacity:0.95;
+}
+.moldeobutton:active{
+  color:#eee;
+  background:#222;
+  opacity:0.95;
+}
+#moConfig{
+  margin:0;
+  padding:0;
+  width:100%;
+  height:100%;
+  background:transparent;
+}
+/*- moWheel -*/
+@keyframes moWheelMove {
+    from {width:30px;height:30px;margin:30px 0 0 30px;}
+    to {width:80px;height:80px;margin:0;}
+}
+@keyframes selectMove {
+    from {width:1px;border-right:0px solid #353535;}
+    to {width:200px;border-right:4px solid #353535;}
+}
+.moWheelAni{
+  animation: moWheelMove 0.3s;
+  transition-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+.selectAni{
+  animation: selectMove 0.2s;
+  animation-delay: 0.3s;
+  transition-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+#moWheel{
+  margin:0;
+  position:relative;
+  top:0;
+  left:0;
+  opacity:0.7;
+  user-select: none;
+  z-index:999;
+}
+.circle{
+  width:30px;
+  height:30px;
+  position:absolute;
+  margin:0;
+  border-radius: 50%;
+  border:4px solid #353535;
+  background: #eee;
+  background-image: url('./assets/mojs-interface-data/moldeo.svg');
+  background-size: 90%;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  float:left;
+}
+.objectSelect{
+  width:0px;
+  height:50px;
+  position:absolute;
+  top:15px;
+  left:75px;
+  background: #eee;
+  border-top:4px solid #353535;
+  border-bottom:4px solid #353535;
+  overflow-y:scroll;
+  overflow-x:hidden;
+}
+.objectSelect::-webkit-scrollbar{
+  width: 1em;
+}
+.objectSelect::-webkit-scrollbar-track{
+  background:rgba(255,255,255,0.3);
+  border-left:1px solid #050505;
+}
+.objectSelect::-webkit-scrollbar-thumb{
+  background-color: #364f70;
+}
+.objectSelect::-webkit-scrollbar-track{
+  background:rgba(255,255,255,0.3);
+  border-left:1px solid #050505;
+}
+.objectSelect::-webkit-scrollbar-thumb{
+  background-color: #364f70;
+}
+.objectSelect li:hover{
+  cursor:pointer;
+  background:#ddd;
+}
+
+/**********OBJECTS**********/
 
 svg{
   position: fixed;
@@ -65,6 +242,78 @@ svg{
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
+.moObjOpen h4{
+  width: 120px;
+  text-align: center;
+  margin:55px auto 0 auto;
+  animation: moFadeIn 0.3s;
+  transition-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-delay: 0.3s;
+  opacity:0;
+}
+.moParams{
+  position:fixed;
+  width: 220px;
+  height: 100%;
+  top:40px;
+  background: rgba(10, 10, 10, 0.85);
+  padding: 5px;
+  color: #bbb;
+  z-index: 99;
+  animation: paramSlide 0.3s;
+  transition-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+@keyframes paramSlide {
+  from {left:-220px;}
+  to {left:0;}
+}
+.moParams ul{
+  max-height:60%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.moParams ul::-webkit-scrollbar{
+  width: 1em;
+}
+.moParams ul::-webkit-scrollbar-track{
+  background:rgba(255,255,255,0.3);
+  border-left:1px solid #050505;
+}
+.moParams ul::-webkit-scrollbar-thumb{
+  background-color: #364f70;
+}
+.moParams ul::-webkit-scrollbar-track{
+  background:rgba(255,255,255,0.3);
+  border-left:1px solid #050505;
+}
+.moParams ul::-webkit-scrollbar-thumb{
+  background-color: #364f70;
+}
+.moParams ul li:hover{
+  background:#353535;
+  cursor:pointer;
+}
+.moParams ul li:focus{
+  background:#353535;
+}
+.moParams h3{
+  margin:10px 0 5px 0;
+  font-size:14px;
+  height:14px;
+}
+.moParams input{
+  height:16px;
+  width:90%;
+  margin:5px 5% 0 5%;
+  background:#ddd;
+  color:#101010;
+  border:solid 1px #010101;
+  resize: none;
+}
 
 /*Inlets-Outlets*/
 .moInlet{
@@ -98,3 +347,13 @@ svg{
   opacity:0.5;
 }
 /***********END CSS FOR INTERFACE************/
+
+/*************OTHER ANIMATIONS***************/
+@keyframes moFadeIn {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+@keyframes moFadeOut {
+  from {opacity:1;}
+  to {opacity:0;}
+}

@@ -10,6 +10,7 @@ import { MoErase } from './moldeojs-interface/mo-erase/mo-erase.component';
 
 //Services
 import { ConnectionsService } from './moldeojs-interface/services/connections.service';
+import { ParamsService } from './moldeojs-interface/services/params.service';
 //Directives - Pipes
 import { DraggableDirective } from './moldeojs-interface/draggable.directive';
 
@@ -25,7 +26,7 @@ import { DraggableDirective } from './moldeojs-interface/draggable.directive';
   imports: [
     BrowserModule
   ],
-  providers: [ConnectionsService],
+  providers: [ConnectionsService, ParamsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
