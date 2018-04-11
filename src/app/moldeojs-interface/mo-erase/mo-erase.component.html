@@ -9,6 +9,10 @@
 </div>
 
 <div #moSettings class="moObjOpen moOpenAni" [hidden]="!toggle">
+  <div class="moOptionsObject">
+    <a class="moCopyButton"></a>
+    <a class="moTrashButton" (click)="removeMOObject()"></a>
+  </div>
   <h4>{{type}}</h4>
 </div>
 
