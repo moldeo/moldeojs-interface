@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Renderer2, ViewContainerRef } from '@angular/core';
-import { ConnectionsService } from '../services/connections.service';
-import { ParamsService } from '../services/params.service';
+import { ConnectionsService } from '../../services/connections.service';
+import { ParamsService } from '../../services/params.service';
 
 @Component({
   selector: 'mo-erase',

@@ -5,8 +5,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { MoldeojsInterfaceComponent } from './moldeojs-interface/moldeojs-interface.component';
 //Moldeo Components
-import { MoDefaultComponent } from './moldeojs-interface/mo-default/mo-default.component';
-import { MoErase } from './moldeojs-interface/mo-erase/mo-erase.component';
+import { MoDefaultComponent } from './moldeojs-interface/mo-objects/mo-default/mo-default.component';
+import { MoErase } from './moldeojs-interface/mo-objects/mo-erase/mo-erase.component';
 
 //Services
 import { ConnectionsService } from './moldeojs-interface/services/connections.service';

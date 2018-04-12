@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, Renderer2, ViewContainerRef } from '@angular/core';
-import { ConnectionsService } from '../services/connections.service';
+import { ConnectionsService } from '../../services/connections.service';
 
 @Component({
   selector: 'mo-default',

@@ -11,8 +11,8 @@ import {
   Type
 } from '@angular/core';
 import { HtmlContainer } from './htmlcontainer';
-import { MoDefaultComponent } from './mo-default/mo-default.component';
-import { MoErase } from './mo-erase/mo-erase.component';
+import { MoDefaultComponent } from './mo-objects/mo-default/mo-default.component';
+import { MoErase } from './mo-objects/mo-erase/mo-erase.component';
 
 @Component({
   selector: 'moldeojs-interface',
