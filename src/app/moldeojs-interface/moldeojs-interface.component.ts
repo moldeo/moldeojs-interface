@@ -54,7 +54,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
           this.showWheel(e);
       }
     });
-    //this.loadNewMol("./assets/molrepos/01_Icon");
+    this.loadNewMol("./assets/molrepos/01_Icon");
   }
 
   public ngDoCheck(): void {
@@ -63,6 +63,8 @@ export class MoldeojsInterfaceComponent implements OnInit {
           this.globalKeyDown(); //Remove the KeyDown Listener
       }
     }
+    /**************TESTING***************/
+    this.config.createMOJS(this.moConfig);
   }
 
   public ngAfterViewInit(): void {}
@@ -125,6 +127,19 @@ export class MoldeojsInterfaceComponent implements OnInit {
       componentRef.instance.name = n;
     }
 
+    if(p != undefined){
+      let newParams:any = [];
+      for (let i = 3; i < p.length; i++) {
+        let att_name = p[i]._attributes.name;
+        let att_values = [];
+        for (let d = 0; d < p[i].VAL[0].D.length; d++) {
+          att_values[d] = p[i].VAL[0].D[d]._text;
+        }
+        newParams[i-3] = [att_name, att_values];
+      }
+      componentRef.instance.params = newParams;
+    }
+
     this.containers.push(container);
 
     //Log to Console
@@ -144,12 +159,12 @@ export class MoldeojsInterfaceComponent implements OnInit {
 
           let preeffects = xml.MOCONFIG[0].CONFIGPARAMS[0].PARAM[4];
           for (let i = 0; i < preeffects.VAL.length; i++) {
-            this_.loadCFG(path, preeffects.VAL[i].D[1]._text[0], preeffects.VAL[i].D[0]._text[0], 0);
+            this_.loadCFG(path, preeffects.VAL[i].D[1]._text[0], preeffects.VAL[i].D[0]._text[0], 0, i);
           }
 
           let effects = xml.MOCONFIG[0].CONFIGPARAMS[0].PARAM[5];
           for (let i = 0; i < effects.VAL.length; i++) {
-            this_.loadCFG(path, effects.VAL[i].D[1]._text[0], effects.VAL[i].D[0]._text[0], 1);
+            this_.loadCFG(path, effects.VAL[i].D[1]._text[0], effects.VAL[i].D[0]._text[0], 1, i);
           }
 
         }
@@ -161,7 +176,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
 
   public saveNewMol(): void{}
 
-  public loadCFG(path:string, cfg_name:string, cfg_type:string, obj:number): void{
+  public loadCFG(path:string, cfg_name:string, cfg_type:string, obj:number, index:number): void{
     let this_ = this;
     let cfgFile = new XMLHttpRequest();
     cfgFile.open("GET", path+"/"+cfg_name+".cfg", true);
@@ -169,7 +184,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
       if(cfgFile.readyState === 4){
         if(cfgFile.status === 200 || cfgFile.status == 0){
           let xml = this_.config.loadXML(cfgFile.responseText);
-          this_.newMOObject(cfg_type, 300+200*obj, 80, cfg_name, xml.MOCONFIG[0].CONFIGPARAMS[0].PARAM);
+          this_.newMOObject(cfg_type, 300+200*obj, 80+80*index, cfg_name, xml.MOCONFIG[0].CONFIGPARAMS[0].PARAM);
         }
       }
     }

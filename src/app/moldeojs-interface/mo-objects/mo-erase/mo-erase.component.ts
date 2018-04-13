@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, Renderer2, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, Renderer2, ViewContainerRef } from '@angular/core';
 import { ConnectionsService } from '../../services/connections.service';
 import { ParamsService } from '../../services/params.service';
 
@@ -21,9 +21,10 @@ export class MoErase implements OnInit {
   public drag:boolean = true;
 
   public type:string = "moErase";
+  public motype:string = "erase";
   public title:string = "";
   /*PARAMS*/
-  public params:any;
+  @Input() public params:any;
   public paramSelect:string = "";
   public showParams:boolean = false;
 
@@ -39,12 +40,16 @@ export class MoErase implements OnInit {
     let this_ = this;
     this.title = this.type + " - " + this.name;
 
-    this.params = [
-      this.par.createParam('alpha', [0]),
-      this.par.createParam('color', [0, 0, 0, 0]),
-      this.par.createParam('syncro', [0]),
-      this.par.createParam('phase', [0])
-    ];
+    if(this.params == undefined){
+      this.params = [
+        this.par.createParam('alpha', [0]),
+        this.par.createParam('color', [0, 0, 0, 0]),
+        this.par.createParam('syncro', [0]),
+        this.par.createParam('phase', [0])
+      ];
+    }
+
+    this.moErase.nativeElement.attributes.type = this.motype; //Send Type
 
     /*Global Listener*/
     this.globalMouseUp = this.renderer.listen("document", 'mouseup', () => {
@@ -67,6 +72,8 @@ export class MoErase implements OnInit {
         this.con.updateCon(this.moErase, this.moConnect);
       }
     }
+    this.moErase.nativeElement.attributes.name = this.name; //Send Name
+    this.moErase.nativeElement.attributes.params = this.params;  //Send Params
   }
 
   public ngAfterViewInit(): void {
