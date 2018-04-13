@@ -80,21 +80,7 @@ export class MoErase implements OnInit {
   }
 
   public ngOnDestroy(): void {
-    //NULL Vars
-    this.posX = null;
-    this.posY = null;
-    this.name = null;
-    this.moErase = null;
-    this.moSettings = null;
-    this.moConnect = null;
-    this.moPrecon = null;
-    this.toggle = null;
-    this.drag = null;
-    this.type = null;
-    this.title = null;
-    this.con = null;
-    this.renderer = null;
-    this.viewCon = null;
+    console.log("Destroy moObject");
     //DESTROY LISTENER WHEN DESTROY Component
     if(this.globalMouseUp){
       this.globalMouseUp();
@@ -145,6 +131,12 @@ export class MoErase implements OnInit {
       this_.params[currentPar][1][indexPar] = e.target.value;
       this.showParams = false;
       setTimeout(function(){this_.showParams = true;}, 1);
+    }
+  }
+
+  public changeName(e): void{
+    if(e.key == "Enter"){
+      this.name = e.target.value;
     }
   }
 

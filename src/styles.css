@@ -254,6 +254,9 @@ svg{
   animation-delay: 0.3s;
   opacity:0;
 }
+.moObjOpen h4 span{
+  font-weight:normal;
+}
 .moOptionsObject{
   position:absolute;
   opacity:0;
@@ -311,7 +314,11 @@ svg{
   from {left:-220px;}
   to {left:0;}
 }
+.moParams h2{
+  margin:0;
+}
 .moParams ul{
+  margin-top:10px;
   max-height:60%;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -347,12 +354,14 @@ svg{
 }
 .moParams input{
   height:16px;
-  width:90%;
-  margin:5px 5% 0 5%;
+  width:95%;
+  margin:5px 0 0 0;
   background:#ddd;
   color:#101010;
   border:solid 1px #010101;
   resize: none;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 /*Inlets-Outlets*/

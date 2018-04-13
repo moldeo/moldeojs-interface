@@ -13,11 +13,12 @@
     <a class="moCopyButton"></a>
     <a class="moTrashButton" (click)="removeMOObject()"></a>
   </div>
-  <h4>{{type}}</h4>
+  <h4>{{type}}<br><span>{{name}}</span></h4>
 </div>
 
 <div #moParams class="moParams" [hidden]="!toggle">
   <h2 class="moParamsContent">{{type}}</h2>
+  <input class="moParamsContent" type="text" name="" value="{{name}}" (keyup)="changeName($event)">
   <ul class="moParamsContent">
     <li *ngFor="let i of params" class="moParamsContent" (click)="selParam(i)">
       {{i[0]}}
