@@ -1,0 +1,36 @@
+<div class="moContainer" #moIcon [ngDraggable]="drag" draggable="true" (dragstart)="toggle=false;">
+  <div class="moInlet" (mousedown)="drag=false;">
+  </div>
+  <div class="moObject" (dblclick)="showSet();">
+    <p>Icon</p>
+  </div>
+  <div class="moOutlet" (mousedown)="drag=false;con.dataOut($event, moErase, moPrecon, moConnect, '12aced');">
+  </div>
+</div>
+
+<div #moSettings class="moObjOpen moOpenAni" [hidden]="!toggle">
+  <div class="moOptionsObject">
+    <a class="moCopyButton"></a>
+    <a class="moTrashButton" (click)="removeMOObject()"></a>
+  </div>
+  <h4>{{type}}<br><span>{{name}}</span></h4>
+</div>
+
+<div #moParams class="moParams" [hidden]="!toggle">
+  <h2 class="moParamsContent">{{type}}</h2>
+  <input class="moParamsContent" type="text" name="" value="{{name}}" (keyup)="changeName($event)">
+  <ul class="moParamsContent">
+    <li *ngFor="let i of params" class="moParamsContent" (click)="selParam(i)">
+      {{i[0]}}
+    </li>
+  </ul>
+  <h3 class="moParamsContent">{{paramSelect[0]}}</h3>
+  <div #moCurrentParams class="moParamsContent" *ngIf="showParams">
+    <input *ngFor="let i of paramSelect[1]" type="text" class="moParamsContent" value="{{i}}" (keyup)="getNewParam($event)">
+  </div>
+</div>
+
+<svg #moPrecon id="moPrecon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">
+</svg>
+<svg #moConnect id="moConnect" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">
+</svg>

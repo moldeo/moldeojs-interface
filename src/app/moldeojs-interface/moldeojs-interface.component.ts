@@ -14,6 +14,7 @@ import { HtmlContainer } from './htmlcontainer';
 import { MoConfigService } from './services/mo-config.service';
 import { MoDefaultComponent } from './mo-objects/mo-default/mo-default.component';
 import { MoErase } from './mo-objects/mo-erase/mo-erase.component';
+import { MoIcon } from './mo-objects/mo-icon/mo-icon.component';
 
 @Component({
   selector: 'moldeojs-interface',
@@ -63,8 +64,6 @@ export class MoldeojsInterfaceComponent implements OnInit {
           this.globalKeyDown(); //Remove the KeyDown Listener
       }
     }
-    /**************TESTING***************/
-    this.config.createMOJS(this.moConfig);
   }
 
   public ngAfterViewInit(): void {}
@@ -108,6 +107,9 @@ export class MoldeojsInterfaceComponent implements OnInit {
     switch(c) {
        case 'erase':
            componentRef = container.attach(MoErase);
+           break;
+       case 'icon':
+           componentRef = container.attach(MoIcon);
            break;
        default:
            componentRef = container.attach(MoDefaultComponent);

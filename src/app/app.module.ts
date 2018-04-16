@@ -7,6 +7,7 @@ import { MoldeojsInterfaceComponent } from './moldeojs-interface/moldeojs-interf
 //Moldeo Components
 import { MoDefaultComponent } from './moldeojs-interface/mo-objects/mo-default/mo-default.component';
 import { MoErase } from './moldeojs-interface/mo-objects/mo-erase/mo-erase.component';
+import { MoIcon } from './moldeojs-interface/mo-objects/mo-icon/mo-icon.component';
 
 //Services
 import { ConnectionsService } from './moldeojs-interface/services/connections.service';
@@ -21,9 +22,10 @@ import { DraggableDirective } from './moldeojs-interface/draggable.directive';
     MoldeojsInterfaceComponent,
     DraggableDirective,
     MoDefaultComponent,
-    MoErase
+    MoErase,
+    MoIcon,
   ],
-  entryComponents: [MoDefaultComponent, MoErase],
+  entryComponents: [MoDefaultComponent, MoErase, MoIcon],
   imports: [
     BrowserModule
   ],

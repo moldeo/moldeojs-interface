@@ -3,15 +3,15 @@ import { ConnectionsService } from '../../services/connections.service';
 import { ParamsService } from '../../services/params.service';
 
 @Component({
-  selector: 'mo-erase',
-  templateUrl: './mo-erase.component.html',
-  styleUrls: ['./mo-erase.component.css']
+  selector: 'mo-icon',
+  templateUrl: './mo-icon.component.html',
+  styleUrls: ['./mo-icon.component.css']
 })
-export class MoErase implements OnInit {
+export class MoIcon implements OnInit {
   @Input() public posX:number = 0;
   @Input() public posY:number = 0;
   @Input() public name:string = "";
-  @ViewChild('moErase') moErase;
+  @ViewChild('moIcon') moIcon;
   @ViewChild('moSettings') moSettings;
   @ViewChild('moParams') moParams;
   @ViewChild('moCurrentParams') moCurrentParams;
@@ -20,8 +20,8 @@ export class MoErase implements OnInit {
   public toggle:boolean = false;
   public drag:boolean = true;
 
-  public type:string = "moErase";
-  public motype:string = "erase";
+  public type:string = "moIcon";
+  public motype:string = "icon";
   public title:string = "";
   /*PARAMS*/
   @Input() public params:any;
@@ -45,11 +45,20 @@ export class MoErase implements OnInit {
         this.par.createParam('alpha', [0]),
         this.par.createParam('color', [0, 0, 0, 0]),
         this.par.createParam('syncro', [0]),
-        this.par.createParam('phase', [0])
+        this.par.createParam('phase', [0]),
+        this.par.createParam('texture', ["default"]),
+        this.par.createParam('blending', [0]),
+        this.par.createParam('width', [1.0]),
+        this.par.createParam('height', [1.0]),
+        this.par.createParam('translatex', [0.0]),
+        this.par.createParam('translatey', [0.0]),
+        this.par.createParam('rotate', [0.0]),
+        this.par.createParam('scalex', [1.0]),
+        this.par.createParam('scaley', [1.0])
       ];
     }
 
-    this.moErase.nativeElement.attributes.type = this.motype; //Send Type
+    this.moIcon.nativeElement.attributes.type = this.motype; //Send Type
 
     /*Global Listener*/
     this.globalMouseUp = this.renderer.listen("document", 'mouseup', () => {
@@ -69,16 +78,16 @@ export class MoErase implements OnInit {
   public ngDoCheck(): void {
     if(this.moConnect && this.moConnect.nativeElement.children.length > 0){
       if(this.drag){
-        this.con.updateCon(this.moErase, this.moConnect);
+        this.con.updateCon(this.moIcon, this.moConnect);
       }
     }
-    this.moErase.nativeElement.attributes.name = this.name; //Send Name
-    this.moErase.nativeElement.attributes.params = this.params;  //Send Params
+    this.moIcon.nativeElement.attributes.name = this.name; //Send Name
+    this.moIcon.nativeElement.attributes.params = this.params;  //Send Params
   }
 
   public ngAfterViewInit(): void {
-    this.moErase.nativeElement.style.left = this.posX+"px";
-    this.moErase.nativeElement.style.top = this.posY+"px";
+    this.moIcon.nativeElement.style.left = this.posX+"px";
+    this.moIcon.nativeElement.style.top = this.posY+"px";
     /********************************************************/
     this.moConnect.nativeElement.style.width = screen.width+"px";
     this.moConnect.nativeElement.style.height = screen.height+"px";
@@ -106,8 +115,8 @@ export class MoErase implements OnInit {
   ///////////////////////////////////////////////////////////////////
   private showSet(): void {
     this.toggle = true;
-    this.moSettings.nativeElement.style.left = this.moErase.nativeElement.style.left;
-    this.moSettings.nativeElement.style.top = this.moErase.nativeElement.style.top;
+    this.moSettings.nativeElement.style.left = this.moIcon.nativeElement.style.left;
+    this.moSettings.nativeElement.style.top = this.moIcon.nativeElement.style.top;
 
     this.globalKey = this.renderer.listen("document", 'keydown', (e) => {
       if(e.key == "Delete"){
