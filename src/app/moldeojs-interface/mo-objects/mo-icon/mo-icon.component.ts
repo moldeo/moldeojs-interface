@@ -23,6 +23,7 @@ export class MoIcon implements OnInit {
   public type:string = "moIcon";
   public motype:string = "icon";
   public title:string = "";
+  public texturePath:string = "";
   /*PARAMS*/
   @Input() public params:any;
   public paramSelect:string = "";
@@ -58,6 +59,9 @@ export class MoIcon implements OnInit {
       ];
     }
 
+    if(this.params[4][1][0][0] == "default" || this.params[4][1][0][0] == ""){
+        this.texturePath = "./assets/mojs-interface-data/icons/moldeologo.png"; //Default Texture
+    }
     this.moIcon.nativeElement.attributes.type = this.motype; //Send Type
 
     /*Global Listener*/
@@ -80,6 +84,9 @@ export class MoIcon implements OnInit {
       if(this.drag){
         this.con.updateCon(this.moIcon, this.moConnect);
       }
+    }
+    if(this.params[4][1][0][0] == "default" || this.params[4][1][0][0] == ""){
+        this.texturePath = "./assets/mojs-interface-data/icons/moldeologo.png"; //Default Texture
     }
     this.moIcon.nativeElement.attributes.name = this.name; //Send Name
     this.moIcon.nativeElement.attributes.params = this.params;  //Send Params

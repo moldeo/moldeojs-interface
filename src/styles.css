@@ -225,6 +225,12 @@ svg{
   position:absolute;
   bottom:-5px;
 }
+.moObject img{
+  width:20px;
+  height:20px;
+  position:absolute;
+  right:0;
+}
 @keyframes objOpen {
   from {width:68px;height:68px;margin:0 0 0 16px;border:4px solid #353535;border-bottom-left-radius:10px;border-top-right-radius:10px;border-top-left-radius:0px;border-bottom-right-radius:0px;}
   to {width:120px;height:120px;margin:-30px 0 0 -12px;border:2px solid #353535;border-radius:40%;}
@@ -256,6 +262,19 @@ svg{
 }
 .moObjOpen h4 span{
   font-weight:normal;
+}
+.moObjOpen img{
+  width:40px;
+  height:40px;
+  position:absolute;
+  left:50%;
+  margin: 10px 0 0 -20px;
+  opacity:0;
+  animation: moFadeIn 0.3s;
+  transition-timing-function: ease-in;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-delay: 0.3s;
 }
 .moOptionsObject{
   position:absolute;

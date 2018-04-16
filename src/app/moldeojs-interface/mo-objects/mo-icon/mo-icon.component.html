@@ -2,9 +2,10 @@
   <div class="moInlet" (mousedown)="drag=false;">
   </div>
   <div class="moObject" (dblclick)="showSet();">
+    <img [src]="texturePath">
     <p>Icon</p>
   </div>
-  <div class="moOutlet" (mousedown)="drag=false;con.dataOut($event, moErase, moPrecon, moConnect, '12aced');">
+  <div class="moOutlet" (mousedown)="drag=false;con.dataOut($event, moIcon, moPrecon, moConnect, '12aced');">
   </div>
 </div>
 
@@ -13,6 +14,7 @@
     <a class="moCopyButton"></a>
     <a class="moTrashButton" (click)="removeMOObject()"></a>
   </div>
+  <img [src]="texturePath">
   <h4>{{type}}<br><span>{{name}}</span></h4>
 </div>
 
