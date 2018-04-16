@@ -11,6 +11,8 @@ Interface Component for [MoldeoJS](http://github.com/moldeo/moldeojs).
 ---
 ## moObjects
 * *moDefault*: Default object for testing graphics, with not functions
+* *moErase*: Simple erasing background object
+* *moIcon*: Simple graphic object
 ---
 ## Contact
 WebSite: http://moldeo.org
