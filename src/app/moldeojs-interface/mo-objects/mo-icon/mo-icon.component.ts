@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, ViewChild, Renderer2, ViewContainerRef } from '@angular/core';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { ConnectionsService } from '../../services/connections.service';
 import { ParamsService } from '../../services/params.service';
 
@@ -23,6 +24,7 @@ export class MoIcon implements OnInit {
   public type:string = "moIcon";
   public motype:string = "icon";
   public title:string = "";
+  public colorPath:SafeStyle = "";
   public texturePath:string = "";
   /*PARAMS*/
   @Input() public params:any;
@@ -33,7 +35,13 @@ export class MoIcon implements OnInit {
   public globalClick: () => void;
   public globalKey: () => void;
 
-  constructor(public con: ConnectionsService, public par: ParamsService, public renderer: Renderer2, public viewCon: ViewContainerRef) {
+  constructor(
+    public con: ConnectionsService,
+    public par: ParamsService,
+    public renderer: Renderer2,
+    public viewCon: ViewContainerRef,
+    public sanitizer: DomSanitizer
+  ) {
     con.renderer = renderer;
   }
 
@@ -43,25 +51,30 @@ export class MoIcon implements OnInit {
 
     if(this.params == undefined){ //DefaultParams
       this.params = [
-        this.par.createParam('alpha', [0]),
-        this.par.createParam('color', [0, 0, 0, 0]),
-        this.par.createParam('syncro', [0]),
-        this.par.createParam('phase', [0]),
+        this.par.createParam('alpha', ["1.0"]),
+        this.par.createParam('color', ["1.0", "1.0", "1.0", "1.0"]),
+        this.par.createParam('syncro', ["0.0"]),
+        this.par.createParam('phase', ["0.0"]),
         this.par.createParam('texture', ["default"]),
-        this.par.createParam('blending', [0]),
-        this.par.createParam('width', [1.0]),
-        this.par.createParam('height', [1.0]),
-        this.par.createParam('translatex', [0.0]),
-        this.par.createParam('translatey', [0.0]),
-        this.par.createParam('rotate', [0.0]),
-        this.par.createParam('scalex', [1.0]),
-        this.par.createParam('scaley', [1.0])
+        this.par.createParam('blending', ["0"]),
+        this.par.createParam('width', ["1.0"]),
+        this.par.createParam('height', ["1.0"]),
+        this.par.createParam('translatex', ["0.0"]),
+        this.par.createParam('translatey', ["0.0"]),
+        this.par.createParam('rotate', ["0.0"]),
+        this.par.createParam('scalex', ["1.0"]),
+        this.par.createParam('scaley', ["1.0"])
       ];
     }
 
-    if(this.params[4][1][0][0] == "default" || this.params[4][1][0][0] == ""){
+    if(this.params[4][1][0] == "default" || this.params[4][1][0] == ""){
         this.texturePath = "./assets/mojs-interface-data/icons/moldeologo.png"; //Default Texture
+    }else{
+        this.texturePath = this.params[4][1][0];
     }
+    this.colorPath = this.sanitizer.bypassSecurityTrustStyle('2px solid rgba('+this.params[1][1][0]*255+
+    ', '+this.params[1][1][1]*255+', '+this.params[1][1][2]*255+', '+this.params[1][1][3]+')');
+
     this.moIcon.nativeElement.attributes.type = this.motype; //Send Type
 
     /*Global Listener*/
@@ -85,9 +98,14 @@ export class MoIcon implements OnInit {
         this.con.updateCon(this.moIcon, this.moConnect);
       }
     }
-    if(this.params[4][1][0][0] == "default" || this.params[4][1][0][0] == ""){
+    if(this.params[4][1][0] == "default" || this.params[4][1][0] == ""){
         this.texturePath = "./assets/mojs-interface-data/icons/moldeologo.png"; //Default Texture
+    }else{
+        this.texturePath = this.params[4][1][0];
     }
+    this.colorPath = this.sanitizer.bypassSecurityTrustStyle('2px solid rgba('+this.params[1][1][0]*255+
+    ', '+this.params[1][1][1]*255+', '+this.params[1][1][2]*255+', '+this.params[1][1][3]+')');
+
     this.moIcon.nativeElement.attributes.name = this.name; //Send Name
     this.moIcon.nativeElement.attributes.params = this.params;  //Send Params
   }

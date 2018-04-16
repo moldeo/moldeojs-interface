@@ -225,11 +225,13 @@ svg{
   position:absolute;
   bottom:-5px;
 }
-.moObject img{
+.moObject img, .moObject b{
+  display:block;
   width:20px;
   height:20px;
   position:absolute;
   right:0;
+  border-bottom-left-radius: 100%;
 }
 @keyframes objOpen {
   from {width:68px;height:68px;margin:0 0 0 16px;border:4px solid #353535;border-bottom-left-radius:10px;border-top-right-radius:10px;border-top-left-radius:0px;border-bottom-right-radius:0px;}
@@ -263,12 +265,13 @@ svg{
 .moObjOpen h4 span{
   font-weight:normal;
 }
-.moObjOpen img{
-  width:40px;
-  height:40px;
+.moObjOpen img, .moObjOpen b{
+  width:30px;
+  height:30px;
   position:absolute;
+  border-radius:50%;
   left:50%;
-  margin: 10px 0 0 -20px;
+  margin: 20px 0 0 -15px;
   opacity:0;
   animation: moFadeIn 0.3s;
   transition-timing-function: ease-in;

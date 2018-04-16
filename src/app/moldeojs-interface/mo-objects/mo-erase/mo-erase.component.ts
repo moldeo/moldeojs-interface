@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, ViewChild, Renderer2, ViewContainerRef } from '@angular/core';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { ConnectionsService } from '../../services/connections.service';
 import { ParamsService } from '../../services/params.service';
 
@@ -23,6 +24,7 @@ export class MoErase implements OnInit {
   public type:string = "moErase";
   public motype:string = "erase";
   public title:string = "";
+  public colorPath:SafeStyle = "";
   /*PARAMS*/
   @Input() public params:any;
   public paramSelect:string = "";
@@ -32,7 +34,13 @@ export class MoErase implements OnInit {
   public globalClick: () => void;
   public globalKey: () => void;
 
-  constructor(public con: ConnectionsService, public par: ParamsService, public renderer: Renderer2, public viewCon: ViewContainerRef) {
+  constructor(
+    public con: ConnectionsService,
+    public par: ParamsService,
+    public renderer: Renderer2,
+    public viewCon: ViewContainerRef,
+    public sanitizer: DomSanitizer
+  ) {
     con.renderer = renderer;
   }
 
@@ -42,12 +50,15 @@ export class MoErase implements OnInit {
 
     if(this.params == undefined){ //DefaultParams
       this.params = [
-        this.par.createParam('alpha', [0]),
-        this.par.createParam('color', [0, 0, 0, 0]),
-        this.par.createParam('syncro', [0]),
-        this.par.createParam('phase', [0])
+        this.par.createParam('alpha', ["0.0"]),
+        this.par.createParam('color', ["0.0", "0.0", "0.0", "0.0"]),
+        this.par.createParam('syncro', ["0.0"]),
+        this.par.createParam('phase', ["0.0"])
       ];
     }
+
+    this.colorPath = this.sanitizer.bypassSecurityTrustStyle('rgba('+this.params[1][1][0]*255+
+    ', '+this.params[1][1][1]*255+', '+this.params[1][1][2]*255+', '+this.params[1][1][3]+')');
 
     this.moErase.nativeElement.attributes.type = this.motype; //Send Type
 
@@ -72,6 +83,9 @@ export class MoErase implements OnInit {
         this.con.updateCon(this.moErase, this.moConnect);
       }
     }
+    this.colorPath = this.sanitizer.bypassSecurityTrustStyle('rgba('+this.params[1][1][0]*255+
+    ', '+this.params[1][1][1]*255+', '+this.params[1][1][2]*255+', '+this.params[1][1][3]+')');
+
     this.moErase.nativeElement.attributes.name = this.name; //Send Name
     this.moErase.nativeElement.attributes.params = this.params;  //Send Params
   }
