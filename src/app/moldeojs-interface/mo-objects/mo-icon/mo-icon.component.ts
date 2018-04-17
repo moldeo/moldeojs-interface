@@ -72,8 +72,8 @@ export class MoIcon implements OnInit {
     }else{
         this.texturePath = this.params[4][1][0];
     }
-    this.colorPath = this.sanitizer.bypassSecurityTrustStyle('2px solid rgba('+this.params[1][1][0]*255+
-    ', '+this.params[1][1][1]*255+', '+this.params[1][1][2]*255+', '+this.params[1][1][3]+')');
+    this.colorPath = this.sanitizer.bypassSecurityTrustStyle('rgba('+this.params[1][1][0]+
+    ', '+this.params[1][1][1]+', '+this.params[1][1][2]+', '+this.params[1][1][3]+')');
 
     this.moIcon.nativeElement.attributes.type = this.motype; //Send Type
 
@@ -103,7 +103,7 @@ export class MoIcon implements OnInit {
     }else{
         this.texturePath = this.params[4][1][0];
     }
-    this.colorPath = this.sanitizer.bypassSecurityTrustStyle('2px solid rgba('+this.params[1][1][0]*255+
+    this.colorPath = this.sanitizer.bypassSecurityTrustStyle('rgba('+this.params[1][1][0]*255+
     ', '+this.params[1][1][1]*255+', '+this.params[1][1][2]*255+', '+this.params[1][1][3]+')');
 
     this.moIcon.nativeElement.attributes.name = this.name; //Send Name
