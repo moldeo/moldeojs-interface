@@ -97,7 +97,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
     });
   }
 
-  public newMOObject(c: string, x:number, y:number, n:string, p:any): void { //Type, PosX, PosY, Name, Params
+  public newMOObject(c: string, x:number, y:number, n:string, p:any, k:string): void { //Type, PosX, PosY, Name, Params
     //Hide moWheel
     this.moWheelDisplay=false;
 
@@ -142,6 +142,12 @@ export class MoldeojsInterfaceComponent implements OnInit {
       componentRef.instance.params = newParams;
     }
 
+    if(k == undefined){
+      componentRef.instance.key = "";
+    }else{
+      componentRef.instance.key = k;
+    }
+
     this.containers.push(container);
 
     //Log to Console
@@ -161,12 +167,12 @@ export class MoldeojsInterfaceComponent implements OnInit {
 
           let preeffects = xml.MOCONFIG[0].CONFIGPARAMS[0].PARAM[4];
           for (let i = 0; i < preeffects.VAL.length; i++) {
-            this_.loadCFG(path, preeffects.VAL[i].D[1]._text[0], preeffects.VAL[i].D[0]._text[0], 0, i);
+            this_.loadCFG(path, preeffects.VAL[i].D[1]._text[0], preeffects.VAL[i].D[0]._text[0], 0, i, preeffects.VAL[i].D[5]._text[0]);
           }
 
           let effects = xml.MOCONFIG[0].CONFIGPARAMS[0].PARAM[5];
           for (let i = 0; i < effects.VAL.length; i++) {
-            this_.loadCFG(path, effects.VAL[i].D[1]._text[0], effects.VAL[i].D[0]._text[0], 1, i);
+            this_.loadCFG(path, effects.VAL[i].D[1]._text[0], effects.VAL[i].D[0]._text[0], 1, i, effects.VAL[i].D[5]._text[0]);
           }
 
         }
@@ -178,7 +184,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
 
   public saveNewMol(): void{}
 
-  public loadCFG(path:string, cfg_name:string, cfg_type:string, obj:number, index:number): void{
+  public loadCFG(path:string, cfg_name:string, cfg_type:string, obj:number, index:number, key:string): void{
     let this_ = this;
     let cfgFile = new XMLHttpRequest();
     cfgFile.open("GET", path+"/"+cfg_name+".cfg", true);
@@ -186,7 +192,7 @@ export class MoldeojsInterfaceComponent implements OnInit {
       if(cfgFile.readyState === 4){
         if(cfgFile.status === 200 || cfgFile.status == 0){
           let xml = this_.config.loadXML(cfgFile.responseText);
-          this_.newMOObject(cfg_type, 300+200*obj, 80+80*index, cfg_name, xml.MOCONFIG[0].CONFIGPARAMS[0].PARAM);
+          this_.newMOObject(cfg_type, 300+200*obj, 80+80*index, cfg_name, xml.MOCONFIG[0].CONFIGPARAMS[0].PARAM, key);
         }
       }
     }

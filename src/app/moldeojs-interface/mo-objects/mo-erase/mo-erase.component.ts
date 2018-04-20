@@ -162,6 +162,12 @@ export class MoErase implements OnInit {
     }
   }
 
+  public changeKey(e): void{
+    if(e.key == "Enter"){
+      this.key = e.target.value;
+    }
+  }
+
   private removeMOObject(): void{
     this.viewCon.element.nativeElement.parentElement.removeChild(this.viewCon.element.nativeElement);
     this.ngOnDestroy();

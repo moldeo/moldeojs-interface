@@ -23,7 +23,7 @@
 <div #moParams class="moParams" [hidden]="!toggle">
   <h2 class="moParamsContent">{{type}}</h2>
   <input id="moObjectName" class="moParamsContent" type="text" value="{{name}}" (keyup)="changeName($event)">
-  <input id="moObjectKey" class="moParamsContent" type="text" value="{{key}}" maxlength="1">
+  <input id="moObjectKey" class="moParamsContent" type="text" value="{{key}}" (keyup)="changeKey($event)" maxlength="1">
   <ul class="moParamsContent">
     <li *ngFor="let i of params" class="moParamsContent" (click)="selParam(i)">
       {{i[0]}}
