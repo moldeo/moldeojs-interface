@@ -390,6 +390,14 @@ svg{
   box-shadow: 0 0 3px 1px #4fa9dc;
   font-weight: bold;
 }
+#moObjectName{
+  width:74% !important;
+}
+#moObjectKey{
+  width: 10% !important;
+  text-align: center;
+  text-transform: uppercase;
+}
 
 /*Inlets-Outlets*/
 .moInlet{

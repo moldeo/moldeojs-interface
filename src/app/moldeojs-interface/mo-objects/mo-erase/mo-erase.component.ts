@@ -5,14 +5,15 @@ import { ParamsService } from '../../services/params.service';
 
 @Component({
   selector: 'mo-erase',
-  templateUrl: './mo-erase.component.html',
-  styleUrls: ['./mo-erase.component.css']
+  templateUrl: '../mo-template.html'
 })
 export class MoErase implements OnInit {
   @Input() public posX:number = 0;
   @Input() public posY:number = 0;
   @Input() public name:string = "";
-  @ViewChild('moErase') moErase;
+  @Input() public key:string = "";
+  @ViewChild('moObj') moErase;
+  @ViewChild('moObj') moObj;
   @ViewChild('moSettings') moSettings;
   @ViewChild('moParams') moParams;
   @ViewChild('moCurrentParams') moCurrentParams;

@@ -5,14 +5,15 @@ import { ParamsService } from '../../services/params.service';
 
 @Component({
   selector: 'mo-icon',
-  templateUrl: './mo-icon.component.html',
-  styleUrls: ['./mo-icon.component.css']
+  templateUrl: '../mo-template.html'
 })
 export class MoIcon implements OnInit {
   @Input() public posX:number = 0;
   @Input() public posY:number = 0;
   @Input() public name:string = "";
-  @ViewChild('moIcon') moIcon;
+  @Input() public key:string = "";
+  @ViewChild('moObj') moIcon;
+  @ViewChild('moObj') moObj;
   @ViewChild('moSettings') moSettings;
   @ViewChild('moParams') moParams;
   @ViewChild('moCurrentParams') moCurrentParams;
