@@ -6,8 +6,8 @@ import { AppComponent } from './app.component';
 import { MoldeojsInterfaceComponent } from './moldeojs-interface/moldeojs-interface.component';
 //Moldeo Components
 import { MoDefaultComponent } from './moldeojs-interface/mo-objects/mo-default/mo-default.component';
-import { MoErase } from './moldeojs-interface/mo-objects/mo-erase/mo-erase.component';
-import { MoIcon } from './moldeojs-interface/mo-objects/mo-icon/mo-icon.component';
+import { MoErase } from './moldeojs-interface/mo-objects/mo-erase.component';
+import { MoIcon } from './moldeojs-interface/mo-objects/mo-icon.component';
 
 //Services
 import { ConnectionsService } from './moldeojs-interface/services/connections.service';

@@ -13,8 +13,8 @@ import {
 import { HtmlContainer } from './htmlcontainer';
 import { MoConfigService } from './services/mo-config.service';
 import { MoDefaultComponent } from './mo-objects/mo-default/mo-default.component';
-import { MoErase } from './mo-objects/mo-erase/mo-erase.component';
-import { MoIcon } from './mo-objects/mo-icon/mo-icon.component';
+import { MoErase } from './mo-objects/mo-erase.component';
+import { MoIcon } from './mo-objects/mo-icon.component';
 
 @Component({
   selector: 'moldeojs-interface',
